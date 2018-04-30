@@ -1,0 +1,313 @@
+body{
+	
+	background-image: url("Imagenes/Comic City2.jpg");
+	
+}
+
+
+
+
+.container-fluid>.navbar-header{
+	margin-bottom: 0px;
+	margin-left: -15px;
+	height: 60px;
+}
+.navbar-nav{
+	margin-top: 0px;
+}
+.navbar-nav>li>a{
+	padding-top: 20px;
+	padding-bottom: 20px;
+	color:#3baf92;
+}
+.navbar-form{
+	margin-top: 10px;
+}
+
+
+
+body{
+	
+	background-color: #000000;
+	color: #FFFFFF;
+}
+h2{
+	color: #cdb0d9;
+}
+.dos>h2{
+	color: rgb(45, 174, 161);
+}
+div.resulttitle{
+	
+	background: rgb(73, 36, 106);
+	border-radius: 5px;
+	border-color: rgb(73, 36, 106);
+}
+div.resulttitle>h3{
+	padding-left: 5px;
+	 color:#cdb0d9;
+
+}
+
+div.filtertitle{
+	
+	background: rgb(45, 174, 161);
+	border-radius: 5px;
+	border-color:  rgb(45, 174, 161);
+}
+
+div.filtertitle>h3{
+	padding-left: 5px;
+	color:#12685f;
+
+}
+input.filtro{
+	background: rgb(45, 174, 161);
+	border-radius: 5px;
+	border-color:  rgb(45, 174, 161);
+	height: 45px;
+	width: 90px;
+}
+ .panel-transparent .filter{
+ 	padding-top: 0px;
+	background: rgba(45, 174, 161, 0.3);
+	border-radius: 5px;
+	border-color: rgba(45, 174, 161, 0.3);
+}
+ .panel-transparent  {
+	background:none;
+}
+
+ .panel-transparent .results{
+ 	padding-top: 0px;
+	background: rgba(73, 36, 106, 0.4);
+	border-radius: 5px;
+	border-color:  rgba(73, 36, 106, 0.4);
+}
+ .panel-transparent .inicio{
+ 	
+	background: rgba(73, 36, 106, 0.4);
+	border-radius: 5px;
+	border-color:  rgba(73, 36, 106, 0.4);
+}
+ .panel-transparent .inicio2{
+ 	
+	background: rgba(45, 174, 161, 0.3);
+	border-radius: 5px;
+	border-color: rgba(45, 174, 161, 0.3);
+}
+.panel{
+	border:0px;
+	
+}
+
+.row.content{
+	height: 100%;
+}
+ .sidenav {
+     
+      height: auto; 
+}
+
+
+.navbar-brand{
+	padding: 0px 0px;
+}
+
+@media (max-width: 1200px) {
+    .navbar-header {
+        float: none;
+    }
+    .navbar-left,.navbar-right {
+        float: none !important;
+    }
+    .navbar-toggle {
+        display: block;
+    }
+    .navbar-collapse {
+        border-top: 1px solid transparent;
+        box-shadow: inset 0 1px 0 rgba(255,255,255,0.1);
+    }
+    .navbar-fixed-top {
+        top: 0;
+        border-width: 0 0 1px;
+    }
+    .navbar-collapse.collapse {
+        display: none!important;
+    }
+    .navbar-nav {
+        float: none!important;
+        margin-top: 7.5px;
+    }
+    .navbar-nav>li {
+        float: none;
+    }
+    .navbar-nav>li>a {
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+    .collapse.in{
+        display:block !important;
+    }
+}
+
+@media only screen and (max-width: 767px) {
+      .sidenav {
+        height: auto;
+        padding: 15px;
+        margin-top: 10px;
+      }
+      .resenias{
+      	height: auto;
+      	padding: : 15px;
+      	margin-top: 10px;
+      }
+      div.resenias>h2{
+		color: #22d6a8;
+		text-align: center;
+
+	}
+  
+      .row.content {height: auto;} 
+      .sidenav>img{
+		height: 300px;
+		width: 280px;
+		margin-top: 10px;
+		margin-left: auto;
+		margin-right: auto;
+	}
+	.reviews>img{
+		height: 190px;
+		width: 100px;
+		margin-top: 10px;
+		margin-left: auto;
+		margin-right: auto;
+	}
+	.sidenav>button{
+	width: auto;
+	background-color: #cdb0d9;
+	margin-left: auto;
+	margin-right: auto;
+}
+	div.otros{
+		margin-top: 10px;
+	}
+	
+}
+
+
+
+.resultados>img{
+	height: 300px;
+	width: 280px;
+	margin-top: 10px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.otros>img{
+	height: 300px;
+	width: 280px;
+	margin-top: 10px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+
+.sidenav>img{
+	height: 300px;
+	width: 280px;
+	margin-top: 10px;
+	margin-left: auto;
+	margin-right: auto;
+	
+}
+.sidenav>button{
+	width: auto;
+	background-color: #cdb0d9;
+	margin-left: auto;
+	margin-right: auto;
+}
+div.sidenav{
+	background-color: rgba(73, 36, 106, 0.5);
+	border-radius: 15px;
+	border-color:none; 
+	text-align: center;
+	 padding: 15px;
+
+}
+div.resenias{
+	background-color: rgba(59, 175, 146,0.5);
+	border-radius: 15px;
+	border-color:none; 
+	height: 100%; 	
+	
+}
+div.resenias>h2{
+	color: #22d6a8;
+	padding: 20px;
+
+}
+.reviews>img{
+	height: 290px;
+	width: 300px;
+	margin-top: 10px;
+	margin-left: auto;
+	margin-right: auto;
+}
+div.reviews{
+	text-align: center;
+}
+
+
+div.reseña{
+	background-color: rgba(59, 175, 146,0.5);
+	border-radius: 5px;
+	text-align: center;
+	 padding: 15px;
+	 margin-top: 10px;
+
+
+}
+div.otro{
+	
+	
+	 margin-top: 10px;
+
+
+}
+div.otros{
+	background-color: rgba(59, 175, 146,0.5);
+	border-radius: 5px;
+	text-align: center;
+	 padding: 15px;
+	 
+
+}
+div.coment{
+	background-color: rgba(73, 36, 106, 0.5);
+	border-radius: 5px;
+	padding: 15px;
+}
+div.comentario{
+	background-color: rgba(73, 36, 106, 0.8);
+	border-radius: 5px;
+	padding: 15px;
+}
+.form-horizontal>button{
+	
+	background-color: #cdb0d9;
+}
+div.comenta{
+	text-align: center;
+}
+.buttoncol{
+	background-color: #cdb0d9;
+}
+
+
+
+
+
+
+    

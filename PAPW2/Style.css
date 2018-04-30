@@ -1,11 +1,59 @@
 body{
-	display: block;
+	
 	background-image: url("Imagenes/Comic City.jpg");
+	background-repeat: repeat-x;
 }
+@media only screen and (min-width: 310px) {
+	body{
+	background-image: url("Imagenes/Comic City - For smallMobile.jpg");
+	background-repeat: repeat-x;
+}
+}
+@media only screen and (min-width: 373px) {
+	body{
+	background-image: url("Imagenes/Comic City - For Mobile.jpg");
+	background-repeat: repeat-x;
+}
+}
+@media only screen and (min-width: 767px) {
+	body{
+	background-image: url("Imagenes/Comic City - For iPad.jpg");
+	background-repeat: repeat-x;
+}
+}
+@media only screen and (min-width: 1023px) {
+	body{
+	background-image: url("Imagenes/Comic City - For iPadPro.jpg");
+	background-repeat: repeat-x;
+}
+}
+@media only screen and (min-width: 1282px) {
+	body{
+	background-image: url("Imagenes/Comic City - For 1440px.jpg");
+	background-repeat: repeat-x;
+}
+}
+@media only screen and (min-width: 1280px) {
+	body{
+	background-image: url("Imagenes/Comic City.jpg");
+	background-repeat: repeat-x;
+}
+}
+@media only screen and (min-width: 2500px) {
+	body{
+	background-image: url("Imagenes/Comic City - For RealBig.jpg");
+	background-repeat: repeat-x;
+}
+
+	div.signin{
+		margin-top: 650px;
+	}
+}
+
 html, body{
 	width: 100%;
 	height:100%;
-	overflow: hidden;
+	
 }
 
 .container-fluid{
