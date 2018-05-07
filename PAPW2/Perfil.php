@@ -10,6 +10,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <title>Comic City</title>
    <link href="Inicio.css" rel="stylesheet">
+   <script src="formsandstuff.js" type="text/javascript"></script>
   </head>
   <body>
    
@@ -28,9 +29,15 @@
         <li class="active"><a href="#">Inicio</a></li>
         <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Categorias <span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="#">Categoria 1</a></li>
-            <li><a href="#">Categoria 2</a></li>
-            <li><a href="#">Categoria 3</a></li>
+            <li><a href="#">Action</a></li>
+            <li><a href="#">Adventure</a></li>
+            <li><a href="#">Drama</a></li>
+            <li><a href="#">Fantasy</a></li>
+            <li><a href="#">Noir</a></li>
+            <li><a href="#">Romance</a></li>
+            <li><a href="#">Sci-Fi</a></li>
+            <li><a href="#">Superheros</a></li>
+            <li><a href="#">Terror</a></li>
           </ul>
         </li>
         <li><a href="#">New</a></li>
@@ -64,6 +71,16 @@
         <p>Reviews Number</p>
         <br>
         <button type="button" class="btn btn-default"> <span class="glyphicon glyphicon-ok-sign"></span></button>
+        <button type="button" class="btn btn-default" id="showForm">Edit</button><br>
+
+            <form id="form1">
+              <b>Username:</b> <input type="text" name="Username">
+                <br><br>
+              <b>Profile Picture:</b><input type="file" name="ProfilePic">
+                <br><br>
+              <button type="button" class="btn btn-default" id="submit">Submit</button>
+              </form>
+
       </div>
 
       <div class="col-sm-10 resenias">
@@ -72,7 +89,7 @@
         <br>
         <div class="row">
           <div class="col-sm-2 reviews">
-            <img src="Imagenes/Book.jpg" class="img-responsive" alt="Profile">
+            <a href=""><img src="Imagenes/Book.jpg" class="img-responsive" alt="Profile"></a>
             <p>Descripcion mini de la review/resumen de review </p>
             <span class="glyphicon glyphicon-star"></span>
             <span class="glyphicon glyphicon-star"></span>
@@ -82,7 +99,7 @@
 
           </div>
           <div class="col-sm-2 reviews">
-            <img src="Imagenes/Book.jpg" class="img-responsive" alt="Profile">
+            <a href=""><img src="Imagenes/Book.jpg" class="img-responsive" alt="Profile"></a>
             <p>Descripcion mini de la review/resumen de review </p>
             <span class="glyphicon glyphicon-star"></span>
             <span class="glyphicon glyphicon-star"></span>

@@ -30,9 +30,15 @@
         <li class="active"><a href="#">Inicio</a></li>
         <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Categorias <span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="#">Categoria 1</a></li>
-            <li><a href="#">Categoria 2</a></li>
-            <li><a href="#">Categoria 3</a></li>
+           <li><a href="#">Action</a></li>
+            <li><a href="#">Adventure</a></li>
+            <li><a href="#">Drama</a></li>
+            <li><a href="#">Fantasy</a></li>
+            <li><a href="#">Noir</a></li>
+            <li><a href="#">Romance</a></li>
+            <li><a href="#">Sci-Fi</a></li>
+            <li><a href="#">Superheros</a></li>
+            <li><a href="#">Terror</a></li>
           </ul>
         </li>
         <li><a href="#">New</a></li>
@@ -98,7 +104,7 @@
       <br>
      <div class="row">
           <div class="col-sm-2 resultados">
-            <img src="Imagenes/Book.jpg" class="img-responsive" alt="Profile">
+            <a href=""><img src="Imagenes/Book.jpg" class="img-responsive" alt="Profile"></a>
                 <p>Descripcion mini de la review/resumen de review </p>
                 <a href="">Usuario</a> <br>
                 <span class="glyphicon glyphicon-star"></span>
@@ -108,7 +114,7 @@
                 <span class="glyphicon glyphicon-star-empty"></span>
               </div>
               <div class="col-sm-2 resultados">
-            <img src="Imagenes/Book.jpg" class="img-responsive" alt="Profile">
+            <a href=""><img src="Imagenes/Book.jpg" class="img-responsive" alt="Profile"></a>
                 <p>Descripcion mini de la review/resumen de review </p>
                 <a href="">Usuario</a><br>
                 <span class="glyphicon glyphicon-star"></span>
@@ -118,7 +124,7 @@
                 <span class="glyphicon glyphicon-star-empty"></span>
               </div>
               <div class="col-sm-2 resultados">
-            <img src="Imagenes/Book.jpg" class="img-responsive" alt="Profile">
+            <a href=""><img src="Imagenes/Book.jpg" class="img-responsive" alt="Profile"></a>
                 <p>Descripcion mini de la review/resumen de review </p>
                 <a href="">Usuario</a><br>
                 <span class="glyphicon glyphicon-star"></span>
@@ -128,7 +134,7 @@
                 <span class="glyphicon glyphicon-star-empty"></span>
               </div>
               <div class="col-sm-2 resultados">
-            <img src="Imagenes/Book.jpg" class="img-responsive" alt="Profile">
+           <a href=""><img src="Imagenes/Book.jpg" class="img-responsive" alt="Profile"></a>
                 <p>Descripcion mini de la review/resumen de review </p>
                 <a href="">Usuario</a><br>
                 <span class="glyphicon glyphicon-star"></span>
@@ -138,7 +144,7 @@
                 <span class="glyphicon glyphicon-star-empty"></span>
               </div>
               <div class="col-sm-2 resultados">
-            <img src="Imagenes/Book.jpg" class="img-responsive" alt="Profile">
+            <a href=""><img src="Imagenes/Book.jpg" class="img-responsive" alt="Profile"></a>
                 <p>Descripcion mini de la review/resumen de review </p>
                 <a href="">Usuario</a><br>
                 <span class="glyphicon glyphicon-star"></span>
@@ -148,7 +154,7 @@
                 <span class="glyphicon glyphicon-star-empty"></span>
               </div>
               <div class="col-sm-2 resultados">
-            <img src="Imagenes/Book.jpg" class="img-responsive" alt="Profile">
+            <a href=""><img src="Imagenes/Book.jpg" class="img-responsive" alt="Profile"></a>
                 <p>Descripcion mini de la review/resumen de review </p>
                 <a href="">Usuario</a><br>
                 <span class="glyphicon glyphicon-star"></span>

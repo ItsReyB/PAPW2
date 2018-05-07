@@ -36,12 +36,8 @@
 				<h3>Sign Up</h3>
 			  		<form >
 			  			<div class="form-group">
-					      <label for="name">Name:</label>
-					      <input type="text" class="form-control input-sm" id="name" placeholder="Enter name" name="name">
-					    </div>
-					    <div class="form-group">
-					      <label for="lastname">Last Name:</label>
-					      <input type="text" class="form-control input-sm" id="lastname" placeholder="Enter last name" name="lastname">
+					      <label for="user">Username:</label>
+					      <input type="text" class="form-control input-sm" id="user" placeholder="Enter user" name="user">
 					    </div>
 					    <div class="form-group">
 					      <label for="email">Email:</label>
