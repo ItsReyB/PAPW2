@@ -14,19 +14,3 @@
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/Login', function () {
-    return view('Login');
-});
-
-Route::get('/Inicio', ['uses' => 'Controller@getReviews']);
-
-Route::get('/Profile',['uses'=>'Controller@getProfile']);
-
-Route::get('/Review', ['uses'=>'Controller@getReview']);
-
-Route::get('/Search', function () {
-    return view('Search');
-});
-Route::get('/SearchAdmin', function () {
-    return view('SearchAdmin');
-});
