@@ -12,21 +12,21 @@ Review
                   <div class="col-sm-2 resultados">
                      <img src="Imagenes/Book.jpg" class="img-responsive" alt="Profile">
                      <label for="ComicPic">Comic Picture:</label>
-                     <input type="file" name="ComicPic" id="ComicPic">
+                     <input type="file" name="ComicPic" id="ComicPic" required="required">
                      <br>
                   </div>
                   <div class="col-sm-8">
                       <div class="row">
                         <div class="col-sm-12">
                           <label for="Title">Title:</label>
-                          <input type="text" name="Title" id="Title">
+                          <input type="text" name="Title" id="Title" required="required">
                         </div>
                      </div>
                      <hr>
                      <div class="row">
                         <div class="col-sm-4">
                           <label for="PublishDate">Publish Date:</label>
-                          <input type="date" name="PublishDate" id="PublishDate">
+                          <input type="date" name="PublishDate" id="PublishDate" required="required">
                           
                         </div>
                         <!--Boton para ver/ocultar seccion de nuevo/edicion-->
@@ -36,14 +36,14 @@ Review
                         
                         <div class="col-sm-4">
                           <label for="Issue">Issue:</label>
-                          <input type="text" name="Issue" id="Issue">
+                          <input type="text" name="Issue" id="Issue" required="required">
                         </div>
                      </div>
                      <hr>
                      <div class="row">
                       <div class="col-sm-12 ">
                        <label for="sinopsis">Sinopsis:</label>
-                       <textarea class="form-control" rows="5" id="sinopsis" placeholder="Write sinopsis"></textarea>
+                       <textarea class="form-control" rows="5" id="sinopsis" placeholder="Write sinopsis" required="required"></textarea>
                        <br>
                       </div>
                      </div>
@@ -52,28 +52,28 @@ Review
                       <div class="row">
                         <div class="col-sm-12">
                           <label for="Editorial">Editorial:</label>
-                          <input type="text" name="Editorial" id="Editorial">
+                          <input type="text" name="Editorial" id="Editorial" required="required">
                         </div>
                       </div>
                       <br>
                       <div class="row">
                         <div class="col-sm-12">
                           <label for="Autor">Autor:</label>
-                          <input type="text" name="Autor" id="Autor">
+                          <input type="text" name="Autor" id="Autor" required="required">
                         </div>
                       </div>
                       <br>
                       <div class="row">
                         <div class="col-sm-12">
                           <label for="Artist">Artist:</label>
-                          <input type="text" name="Artist" id="Artist">
+                          <input type="text" name="Artist" id="Artist" required="required">
                         </div>
                       </div>
                       <br>
                       <div class="row">
                         <div class="col-sm-12">
                           <label for="genre">Genre:</label>
-                          <select class="form-control" id="genre">
+                          <select class="form-control" id="genre" required="required">
                             <option>Action</option>
                             <option>Adventure</option>
                             <option>Drama</option>
@@ -90,7 +90,7 @@ Review
                       <div class="row">
                         <div class="col-sm-12">
                           <label for="numPages">Pages:</label>
-                          <input type="text" name="numPages" id="numPages">
+                          <input type="text" name="numPages" id="numPages" required="required">
                         </div>
                       </div>
                   </div>
@@ -99,7 +99,7 @@ Review
                   <div class="col-sm-12">
                     <br>
                     <label for="stars">Estrellas:</label>
-                      <select class="form-control" id="stars">
+                      <select class="form-control" id="stars" required="required">
                         <option><p>0 Stars</p></option>
                         <option><p>1 Star</p></option>
                         <option><p>2 Stars</p></option>
@@ -109,7 +109,7 @@ Review
                       </select>                    
                     <hr>
                     <label for="review">Review:</label>
-                    <textarea class="form-control" rows="5" id="review" placeholder="Write review"></textarea>
+                    <textarea class="form-control" rows="5" id="review" placeholder="Write review" required="required"></textarea>
                     <br>
                     <button type="button" class="btn btn-default" id="submit">Submit</button>
                   </div>
@@ -205,7 +205,7 @@ Review
             <div class="col-sm-12 comenta">
               
               <form class="form-horizontal" action="">
-                 <input type="text" class="form-control" id="comentario" placeholder="Leave a coment" name="comentario">
+                 <input type="text" class="form-control" id="comentario" placeholder="Leave a coment" name="comentario" required="required">
                  <br>
                  <button type="submit" class="btn btn-default">Submit</button>
               </form>

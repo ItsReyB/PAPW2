@@ -42,7 +42,13 @@
 	          <li><a href="#">Terror</a></li>
 	        </ul>
 	      </li>
+	      @foreach($userinfo as $user)
+	      @if($user['username']=='Rey')
+	      @if($user['isadmin']=='false')
 	      <li><a href="#">New</a></li>
+	      @endif
+	      @endif
+	      @endforeach
 	    </ul>
 	     <form class="navbar-form navbar-left" action="/action_page.php">
       <div class="form-group">
@@ -51,10 +57,14 @@
      
       <button type="submit" class="btn btn-default"> <span class="glyphicon glyphicon-search"></span></button>
     </form>
+     @foreach($userinfo as $user)
+     @if($user['username']=='Rey')
 	    <ul class="nav navbar-nav navbar-right">
-	      <li><a href="#"><span class="glyphicon glyphicon-user"></span> User</a></li>
+	      <li><a href="#"><span class="glyphicon glyphicon-user"></span> {{$user['username']}}</a></li>
 	      <li><a href="#"><span class="glyphicon glyphicon-log-out"></span> Log out</a></li>
 	    </ul>
+	 @endif
+	 @endforeach
 		</div>
 	  </div>
   </nav>

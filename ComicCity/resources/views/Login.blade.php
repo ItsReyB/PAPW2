@@ -20,14 +20,30 @@
 			  		<form >
 					    <div class="form-group">
 					      <label for="email">Email:</label>
-					      <input type="email" class="form-control input-sm " id="email" placeholder="Enter email" name="email">
+					      <input type="email" class="form-control input-sm " id="email" placeholder="Enter email" name="email" required="required">
 					    </div>					 
 					    <div class="form-group">
 					      <label for="pass">Password:</label>
-					      <input type="password" class="form-control input-sm" id="pass" placeholder="Enter password" name="pass">
+					      <input type="password" class="form-control input-sm" id="pass" placeholder="Enter password" name="pass" required="required">
 					    </div>
 					   
 				    	<button type="submit" class="btn btn-default a">Go!</button>
+				    	@foreach($userinfo as $user)
+				    	@if($user['pass']!='1234')
+				    	<div class="alert alert-danger alert-dismissible">
+    					<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    					<strong>Error!</strong>Wrong password
+  						</div>
+				    	@endif
+				    	@endforeach
+				    	@foreach($userinfo as $user)
+				    	@if($user['username']!='Rey')
+				    	<div class="alert alert-danger alert-dismissible">
+    					<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    					<strong>Error!</strong>Wrong username
+  						</div>
+				    	@endif
+				    	@endforeach
 					</form>
 			</div>
 		
@@ -38,15 +54,15 @@
 			  		<form >
 			  			<div class="form-group">
 					      <label for="user">Username:</label>
-					      <input type="text" class="form-control input-sm" id="user" placeholder="Enter user" name="user">
+					      <input type="text" class="form-control input-sm" id="user" placeholder="Enter user" name="user" required="required">
 					    </div>
 					    <div class="form-group">
 					      <label for="email">Email:</label>
-					      <input type="email" class="form-control input-sm" id="email" placeholder="Enter email" name="email">
+					      <input type="email" class="form-control input-sm" id="email" placeholder="Enter email" name="email" required="required">
 					    </div>
 					    <div class="form-group">
 					      <label for="pass">Password:</label>
-					      <input type="password" class="form-control input-sm" id="pass" placeholder="Enter password" name="pass">
+					      <input type="password" class="form-control input-sm" id="pass" placeholder="Enter password" name="pass" required="required">
 					    </div>
 					   
 				    	<button type="submit" class="btn btn-default a ">Join!</button>

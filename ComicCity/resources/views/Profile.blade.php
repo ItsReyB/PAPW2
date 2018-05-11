@@ -28,9 +28,9 @@ Profile
         <button type="button" class="btn btn-default" id="showForm">Edit</button><br>
 
             <form id="form1">
-              <b>Username:</b> <input type="text" name="Username">
+              <b>Username:</b> <input type="text" name="Username" required="required">
                 <br><br>
-              <b>Profile Picture:</b><input type="file" name="ProfilePic">
+              <b>Profile Picture:</b><input type="file" name="ProfilePic" required="required">
                 <br><br>
               <button type="button" class="btn btn-default" id="submit">Submit</button>
               </form>
