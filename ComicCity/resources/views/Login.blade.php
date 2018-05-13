@@ -1,3 +1,24 @@
+<?php 
+	if(isset($_SESSION)){
+	 	echo "<div style= 'color:green'>";
+        echo session_id();
+        echo $_SESSION['user'];
+        echo "</div>";
+	}else{
+		session_start();
+	} 	
+
+	if(isset($_SESSION['userID'])){
+        //echo "<div style= 'color:red'> Hay session </div>";
+        header("location: /Inicio");
+        exit();
+    }else{
+        echo "<div style= 'color:red'> NO Hay session ";
+        echo session_id();
+        echo "</div>";
+    }
+?>
+
 <!DOCTYPE html>
  <html lang="en">
   <head>
@@ -17,7 +38,8 @@
 
     		<div class="signin">
 		    	<h3>Sign In</h3>
-			  		<form >
+			  		<form action="/Inicio" method="POST">
+			  			{{ csrf_field() }}
 					    <div class="form-group">
 					      <label for="email">Email:</label>
 					      <input type="email" class="form-control input-sm " id="email" placeholder="Enter email" name="email" required="required">
@@ -29,20 +51,21 @@
 					   
 				    	<button type="submit" class="btn btn-default a">Go!</button>
 				    	@foreach($userinfo as $user)
-				    	@if($user['pass']!='1234')
-				    	<div class="alert alert-danger alert-dismissible">
-    					<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-    					<strong>Error!</strong>Wrong password
-  						</div>
-				    	@endif
+					    	@if($user['pass']!='1234')
+						    	<div class="alert alert-danger alert-dismissible">
+		    					<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+		    					<strong>Error!</strong>Wrong password
+		  						</div>
+					    	@endif
 				    	@endforeach
+
 				    	@foreach($userinfo as $user)
-				    	@if($user['username']!='Rey')
-				    	<div class="alert alert-danger alert-dismissible">
-    					<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-    					<strong>Error!</strong>Wrong username
-  						</div>
-				    	@endif
+					    	@if($user['username']!='Rey')
+						    	<div class="alert alert-danger alert-dismissible">
+		    					<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+		    					<strong>Error!</strong>Wrong username
+		  						</div>
+					    	@endif
 				    	@endforeach
 					</form>
 			</div>
@@ -51,7 +74,8 @@
 		
 			<div class="signup">
 				<h3>Sign Up</h3>
-			  		<form >
+			  		<form action="/Profile" method="POST">
+			  			{{ csrf_field() }}
 			  			<div class="form-group">
 					      <label for="user">Username:</label>
 					      <input type="text" class="form-control input-sm" id="user" placeholder="Enter user" name="user" required="required">

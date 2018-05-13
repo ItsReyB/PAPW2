@@ -73,10 +73,13 @@ class Controller extends BaseController
     }
 
     public function getProfile(){
+		$user=	['username' => 'Rey', 'joindate' =>'05/09/18', 'numberofreviews' =>'3', 'isadmin' => 'true','isprofile' => 'true']  	;
+
     	$userinfo=[
     		'0' =>['username' => 'Rey', 'joindate' =>'05/09/18', 'numberofreviews' =>'3', 'isadmin' => 'true','isprofile' => 'true'],
     		'1'=>['username' => 'Jerry', 'joindate' =>'05/08/18', 'numberofreviews' =>'2', 'isadmin' => 'true','isprofile' => 'false']
     	];
+
     	$reviews=[
 		'0' => [
 			'review' => 'Review one',
@@ -128,7 +131,7 @@ class Controller extends BaseController
 		]
 	];
     	
-    	return view('Profile', compact('userinfo','reviews'));
+    	return view('Profile', compact('userinfo','reviews', 'user'));
     }
 
     public function getReview(){
@@ -342,7 +345,5 @@ class Controller extends BaseController
     	];
     	return view('Login', compact('userinfo'));
     }
-
-  
-  
+       
 }
