@@ -6,8 +6,12 @@ Profile
 
   <div class="container-fluid">
     <div class="row content">
-      <div class="col-sm-2 sidenav">          
-            <img src="/Imagenes/User.jpg" class="img-responsive" alt="Profile">
+      <div class="col-sm-2 sidenav">
+            @if( isset($user['ProfileImage']) )
+              <img <?php echo 'src="data:image/jpeg;base64,'.($user['ProfileImage']).'"'; ?> class="img-responsive" alt="Profile">
+            @else
+              <img src="/Imagenes/User.jpg" class="img-responsive" alt="Profile">
+            @endif
             <h2>User</h2>
             <p>{{$user['username']}}</p>
             <hr>
@@ -19,18 +23,18 @@ Profile
             <br>
 
             <!--en el perfil de alguien mas-->
-            @if(0)
+            @if(!$actual)
               <button type="button" class="btn btn-default"> <span class="glyphicon glyphicon-ok-sign"></span></button>
-            @endif
-            <!--en su perfil-->
-            @if(1)
+            @else
+            <!--en su perfil-->            
             <button type="button" class="btn btn-default" id="showForm">Edit</button><br>
-              <form id="form1">
-                <b>Username:</b> <input type="text" name="Username" required="required">
+              <form id="form1" action="/editMP" method="POST" enctype="multipart/form-data">
+                {{ csrf_field() }} 
+                <b>Username:</b> <input type="text" name="Username" required="required" value={{$user['username']}}>
                 <br><br>
-                <b>Profile Picture:</b><input type="file" name="ProfilePic" required="required">
+                <b>Profile Picture:</b><input type="file" name="ProfilePic">
                 <br><br>
-                <button type="button" class="btn btn-default" id="submit">Submit</button>
+                <button type="submit" class="btn btn-default" id="submit">Submit</button>
               </form>
             @endif          
 

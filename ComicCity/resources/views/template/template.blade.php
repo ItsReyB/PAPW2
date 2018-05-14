@@ -1,11 +1,16 @@
 <?php 
 	if(isset($_SESSION)){
-		echo session_id();
+		//echo session_id();
 	}else{
 		session_start();
+		//echo session_id();
 	}
 	if(isset($_SESSION['userID'])){
-          echo "<div style= 'color:red'> Hay usuario </div>";
+		/*
+          echo "<div style= 'color:red'> Hay usuario ";
+          echo $_SESSION['userID'];
+          echo "</div>";
+          */
       }else{          
           header("location: /Login");
           exit();
@@ -53,7 +58,13 @@
 						</ul>
 						</li>
 							@if($_SESSION['isAdmin']=='false')
-								<li><a href="Review/New">New</a></li>
+								@if(isset($new))
+									@if(!$new)
+										<li><a href="/Review/New">New</a></li>
+									@endif
+								@else
+									<li><a href="Review/New">New</a></li>
+								@endif
 							@endif		    
 					</ul>
 					<form class="navbar-form navbar-left" action="/action_page.php">

@@ -130,8 +130,8 @@ class Controller extends BaseController
 			'genero' =>'Terror'
 		]
 	];
-    	
-    	return view('Profile', compact('userinfo','reviews', 'user'));
+    	$actual = false;
+    	return view('Profile', compact('userinfo','reviews', 'user', 'actual'));
     }
 
     public function getReview(){
@@ -207,8 +207,8 @@ class Controller extends BaseController
     		'0' =>['username' => 'Rey', 'joindate' =>'05/09/18', 'numberofreviews' =>'3', 'isadmin' => 'true', 'isprofile' => 'true'],
     		'1'=>['username' => 'Jerry', 'joindate' =>'05/08/18', 'numberofreviews' =>'2', 'isadmin' => 'false','isprofile' => 'true']
     	];
-
-	return view('Review', compact('reviewinfo','reviews','comments','userinfo'));
+    	$new=false;
+	return view('Review', compact('reviewinfo','reviews','comments','userinfo', 'new'));
 
     }
 

@@ -1,3 +1,9 @@
+<?php
+if(isset($_SESSION)){
+  }else{
+    session_start();
+  }
+?>
 @extends('template.template')
 @section ('title')
 Review
@@ -7,41 +13,48 @@ Review
 <div class="container-fluid">
 
 <!--Editar/Hacer nueva reseña-->
-<form id="form2">             
+<form id="form2" action="/add" method="POST" enctype="multipart/form-data">     
+  {{ csrf_field() }}        
   <div class="row sidenav">
     <div class="col-sm-2 resultados">
-      <img src="/Imagenes/Book.jpg" class="img-responsive" alt="Profile">
+      @if( isset($reviewinfo['CoverImage']) )
+        <img <?php echo 'src="data:image/jpeg;base64,'.($reviewinfo['CoverImage']).'"'; ?> class="img-responsive" alt="Profile">
+      @else
+        <img src="/Imagenes/Book.jpg" class="img-responsive" alt="Profile">
+      @endif
       <label for="ComicPic">Comic Picture:</label>
-      <input type="file" name="ComicPic" id="ComicPic" required="required">
+      <input type="file" name="ComicPic" id="ComicPic">
       <br>
     </div>
     <div class="col-sm-8">
       <div class="row">
         <div class="col-sm-12">
           <label for="Title">Title:</label>
-          <input type="text" name="Title" id="Title" required="required">
+          <input type="text" name="Title" id="Title" required="required" value={{$reviewinfo['ComicTitle']}}>
         </div>
       </div>
       <hr>
       <div class="row">
         <div class="col-sm-4">
           <label for="PublishDate">Publish Date:</label>
-          <input type="date" name="PublishDate" id="PublishDate" required="required">
+          <input type="date" name="PublishDate" id="PublishDate" required="required" value={{$reviewinfo['publishdate']}}>
         </div>
         <!--Boton para ver/ocultar seccion de nuevo/edicion-->
-        <div class="col-sm-4">
-          <button type="button" class="btn btn-default buttoncol" id="editarReseña">Editar</button>                          
+        <div class="col-sm-4">          
+          @if(!$new)
+            <button type="button" class="btn btn-default buttoncol" id="editarReseña">Dejar de Editar</button>
+          @endif
         </div>
         <div class="col-sm-4">
           <label for="Issue">Issue:</label>
-          <input type="text" name="Issue" id="Issue" required="required">
+          <input type="text" name="Issue" id="Issue" required="required" value={{$reviewinfo['ComicNum']}}>
         </div>
       </div>
       <hr>
       <div class="row">
         <div class="col-sm-12 ">
-          <label for="sinopsis">Sinopsis:</label>
-          <textarea class="form-control" rows="5" id="sinopsis" placeholder="Write sinopsis" required="required"></textarea>
+          <label for="sinopsis">Sinopsis:</label>          
+            <textarea class="form-control" rows="5" name="sinopsis" id="sinopsis" placeholder="Write sinopsis" required="required">{{$reviewinfo['sinopsis']}}</textarea>          
           <br>
         </div>
       </div>
@@ -50,37 +63,32 @@ Review
       <div class="row">
         <div class="col-sm-12">
           <label for="Editorial">Editorial:</label>
-          <input type="text" name="Editorial" id="Editorial" required="required">
+          <input type="text" name="Editorial" id="Editorial" required="required" value={{$reviewinfo['ed']}}>
         </div>
       </div>
       <br>
       <div class="row">
         <div class="col-sm-12">
           <label for="Autor">Autor:</label>
-          <input type="text" name="Autor" id="Autor" required="required">
+          <input type="text" name="Autor" id="Autor" required="required" value={{$reviewinfo['writer']}}>
         </div>
       </div>
       <br>
       <div class="row">
         <div class="col-sm-12">
           <label for="Artist">Artist:</label>
-          <input type="text" name="Artist" id="Artist" required="required">
+          <input type="text" name="Artist" id="Artist" required="required" value={{$reviewinfo['artist']}}>
         </div>
       </div>
       <br>
       <div class="row">
         <div class="col-sm-12">
           <label for="genre">Genre:</label>
-          <select class="form-control" id="genre" required="required">
-            <option>Action</option>
-            <option>Adventure</option>
-            <option>Drama</option>
-            <option>Fantasy</option>
-            <option>Noir</option>
-            <option>Romance</option>
-            <option>Sci-Fi</option>
-            <option>Superheros</option>
-            <option>Terror</option>
+          <select class="form-control" name="genre" id="genre" required="required">            
+            @foreach ($generos as $genero)
+              <option <?php if($reviewinfo['genero'] == $genero['genre']) {echo 'selected';} ?>> {{$genero['genre']}} </option>              
+            @endforeach
+
           </select>
         </div>
       </div>
@@ -88,7 +96,7 @@ Review
       <div class="row">
         <div class="col-sm-12">
           <label for="numPages">Pages:</label>
-          <input type="text" name="numPages" id="numPages" required="required">
+          <input type="text" name="numPages" id="numPages" required="required" value={{$reviewinfo['pages']}}>
         </div>
       </div>
     </div>
@@ -97,32 +105,40 @@ Review
     <div class="col-sm-12">
       <br>
       <label for="stars">Estrellas:</label>
-      <select class="form-control" id="stars" required="required">
-        <option><p>0 Stars</p></option>
-        <option><p>1 Star</p></option>
-        <option><p>2 Stars</p></option>
-        <option><p>3 Stars</p></option>
-        <option><p>4 Stars</p></option>
-        <option><p>5 Stars</p></option>
+      <select class="form-control" name= "stars" id="stars" required="required">
+        <option <?php if($reviewinfo['stars'] == 0) {echo 'selected';} ?> ><p>0 Stars</p></option>
+        <option <?php if($reviewinfo['stars'] == 1) {echo 'selected';} ?>><p>1 Star</p></option>
+        <option <?php if($reviewinfo['stars'] == 2) {echo 'selected';} ?>><p>2 Stars</p></option>
+        <option <?php if($reviewinfo['stars'] == 3) {echo 'selected';} ?>><p>3 Stars</p></option>
+        <option <?php if($reviewinfo['stars'] == 4) {echo 'selected';} ?>><p>4 Stars</p></option>
+        <option <?php if($reviewinfo['stars'] == 5) {echo 'selected';} ?>><p>5 Stars</p></option>
       </select>                    
       <hr>
-      <label for="review">Review:</label>
-      <textarea class="form-control" rows="5" id="review" placeholder="Write review" required="required"></textarea>
+      <label for="review">Review:</label>      
+      <textarea class="form-control" rows="5" name="review" id="review" placeholder="Write review" required="required">{{$reviewinfo['text']}}</textarea>
       <br>
-      <button type="button" class="btn btn-default" id="submit">Submit</button>
+      @if(!$new)
+        <input type="text" name="pid" hidden="true" value={{$reviewinfo['id']}}>
+      @endif
+      <input type="text" name="user" hidden="true" value={{$_SESSION['userID']}}>
+      <button type="submit" class="btn btn-default" id="submit">Submit</button>
     </div>
   </div>              
-  </form>
+</form>
   <!--Reseña-->
   <form id="form3">
     <div class="row sidenav">
       <div class="col-sm-2 resultados">
-         <img src="/Imagenes/Book.jpg" class="img-responsive" alt="Profile">
+        @if( isset($reviewinfo['CoverImage']) )
+          <img <?php echo 'src="data:image/jpeg;base64,'.($reviewinfo['CoverImage']).'"'; ?> class="img-responsive" alt="Profile">
+        @else
+          <img src="/Imagenes/User.jpg" class="img-responsive" alt="Profile">
+        @endif
       </div>
       <div class="col-sm-8">
         <div class="row">
           <div class="col-sm-12">
-            <a href=""><h3>{{$reviewinfo['title']}}</h3></a>
+            <a href=""><h3>{{$reviewinfo['ComicTitle']}}</h3></a>
           </div>
         </div>
         <hr>
@@ -135,7 +151,7 @@ Review
             <button type="button" class="btn btn-default buttoncol" id="editarReseña">Editar</button>
           </div>
           <div class="col-sm-4">
-            <p>{{$reviewinfo['issue']}}</p>
+            <p>{{$reviewinfo['ComicNum']}}</p>
           </div>
         </div>
         <hr>
@@ -148,7 +164,7 @@ Review
       <div class="col-sm-2">
         <div class="row">
           <div class="col-sm-12">
-            <p>{{$reviewinfo['editorial']}}</p>
+            <p>{{$reviewinfo['ed']}}</p>
           </div>
         </div>
         <div class="row">
@@ -163,7 +179,7 @@ Review
         </div>
         <div class="row">
           <div class="col-sm-12">
-            <p>{{$reviewinfo['genre']}}</p>
+            <p> {{$reviewinfo['genero']}}</p>
           </div>
         </div>
         <div class="row">
@@ -183,10 +199,19 @@ Review
           <span class="glyphicon glyphicon-star-empty"></span>
         @endfor
       <hr>
-      <p>{{$reviewinfo['review']}}</p>
+      <p>{{$reviewinfo['text']}}</p>
       </div>
     </div>
   </form>
+
+@if($new)
+  <script>
+    $(document).ready(function() {
+      document.getElementById("editarReseña").click();
+    });
+  </script>
+@endif
+
   <!--comentarios-->
   <div class="row otro">
     <div class="col-sm-10 ">

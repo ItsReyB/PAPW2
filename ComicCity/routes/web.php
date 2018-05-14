@@ -27,6 +27,7 @@ Route::get('/SearchAdmin', ['uses'=>'Controller@getSearchAdmin']);
 
 //---------------------------------------
 Route::post('/Profile', 'DBcontroller@Signing');
+Route::post('/editMP', 'DBcontroller@editMP');
 Route::post('/Inicio', 'DBcontroller@Logging');
 Route::get('/LogOut', 'DBcontroller@LoggingOut');
 
@@ -34,4 +35,6 @@ Route::get('/Profile/{id}',['uses'=>'DBcontroller@getAProfile'])->where('id', '[
 
 Route::get('/Review/{string}', ['uses'=>'DBcontroller@WriteReview'])->where('string','New');
 Route::get('/Review/{id}', ['uses'=>'DBcontroller@ReadReview'])->where('id','[0-9]+');
+
+Route::post('/add', 'DBcontroller@Post');
 //---------------------------------------
