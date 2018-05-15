@@ -50,6 +50,7 @@
 					    </div>
 					   
 				    	<button type="submit" class="btn btn-default a">Go!</button>
+				    	<!--
 				    	@foreach($userinfo as $user)
 					    	@if($user['pass']!='1234')
 						    	<div class="alert alert-danger alert-dismissible">
@@ -67,6 +68,7 @@
 		  						</div>
 					    	@endif
 				    	@endforeach
+				    	-->
 					</form>
 			</div>
 		

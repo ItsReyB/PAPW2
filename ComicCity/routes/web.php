@@ -15,13 +15,13 @@
 Route::get('/', ['uses' => 'Controller@getLogin']);
 Route::get('/Login', ['uses' => 'Controller@getLogin']);
 
-Route::get('/Inicio', ['uses' => 'Controller@getReviews']);
+//Route::get('/Inicio', ['uses' => 'Controller@getReviews']);
 
 //Route::get('/Profile',['uses'=>'Controller@getProfile']);
 
-Route::get('/Review', ['uses'=>'Controller@getReview']);
+//Route::get('/Review', ['uses'=>'Controller@getReview']);
 
-Route::get('/Search', ['uses'=>'Controller@getSearch']);
+//Route::get('/Search', ['uses'=>'Controller@getSearch']);
 
 Route::get('/SearchAdmin', ['uses'=>'Controller@getSearchAdmin']);
 
@@ -37,4 +37,9 @@ Route::get('/Review/{string}', ['uses'=>'DBcontroller@WriteReview'])->where('str
 Route::get('/Review/{id}', ['uses'=>'DBcontroller@ReadReview'])->where('id','[0-9]+');
 
 Route::post('/add', 'DBcontroller@Post');
+
+Route::get('/Search', 'DBcontroller@Search');
+
+Route::get('/Inicio', 'DBcontroller@index');
+Route::post('/Follow', 'DBcontroller@Followuser');
 //---------------------------------------

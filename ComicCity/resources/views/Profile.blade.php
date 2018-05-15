@@ -24,7 +24,55 @@ Profile
 
             <!--en el perfil de alguien mas-->
             @if(!$actual)
-              <button type="button" class="btn btn-default"> <span class="glyphicon glyphicon-ok-sign"></span></button>
+              <button id="btnFollow" type="button" class="btn btn-default" onclick="follow()" id='flw' content="{{ csrf_token() }}">                
+                  <span class='glyphicon glyphicon-ok-sign'  ></span>                   
+              </button>
+              <button id="btnUnFollow" type="button" class="btn btn-default" onclick="unfollow()" id='flw' content="{{ csrf_token() }}">                
+                  <span class='glyphicon glyphicon-remove-sign'  ></span>                   
+              </button>
+              <script>                
+                $(document).ready(function() {                 
+                  document.getElementById("btnFollow").style.color = "green";
+                  document.getElementById("btnUnFollow").style.color = "red";
+                  if({{$Isfollowing}}){
+                    document.getElementById("btnFollow").style.visibility = "hidden";
+                    document.getElementById("btnUnFollow").style.visibility = "visible";
+                  }else{
+                    document.getElementById("btnUnFollow").style.visibility = "hidden";
+                    document.getElementById("btnFollow").style.visibility = "visible";
+                  }
+
+                });   
+                function follow() {                 
+                  var data = "er={{$_SESSION['userID']}}&ed={{$user['id']}}&_token={{csrf_token()}}&exist={{$existFR}}&SN=0";                  
+                  var xmlhttp = new XMLHttpRequest();
+                  xmlhttp.onreadystatechange = function() {
+                    if (this.readyState == 4 && this.status == 200) {
+                      document.getElementById("btnFollow").style.visibility = "hidden";
+                      document.getElementById("btnUnFollow").style.visibility = "visible";
+                    }
+                  };
+                  xmlhttp.open("POST", "/Follow", true);
+                  xmlhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+                  xmlhttp.send(data);
+                }
+                function unfollow() {                 
+                  var data = "er={{$_SESSION['userID']}}&ed={{$user['id']}}&_token={{csrf_token()}}&exist={{$existFR}}&SN=1";                  
+                  var xmlhttp = new XMLHttpRequest();
+                  xmlhttp.onreadystatechange = function() {
+                    if (this.readyState == 4 && this.status == 200) {
+                      document.getElementById("btnFollow").style.visibility = "visible";
+                      document.getElementById("btnUnFollow").style.visibility = "hidden";
+                    }
+                  };
+                  xmlhttp.open("POST", "/Follow", true);
+                  xmlhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+                  xmlhttp.send(data);
+                }
+                      
+                  
+                
+               </script>
             @else
             <!--en su perfil-->            
             <button type="button" class="btn btn-default" id="showForm">Edit</button><br>
@@ -47,9 +95,14 @@ Profile
         <div class="row">
             @foreach($reviews as $review)              
               <div class="col-sm-2 reviews">
-                <a href=""><img src="/Imagenes/Book.jpg" class="img-responsive" alt="Profile"></a>
-                <p>{{$review['review']}} </p>
-
+                <a href="/Review/{{$review['id']}}" >
+                @if( isset($review['CoverImage']) )
+                  <img <?php echo 'src="data:image/jpeg;base64,'.($review['CoverImage']).'"'; ?> class="img-responsive" alt="Profile">
+                @else
+                  <img src="/Imagenes/Book.jpg" class="img-responsive" alt="Profile">
+                @endif   
+                </a>
+                <p>{{$review['ComicTitle']}} #{{$review['ComicNum']}}</p>
                 @for ($i=0; $i <$review['stars']; $i++)                      
                   <span class="glyphicon glyphicon-star"></span>
                 @endfor

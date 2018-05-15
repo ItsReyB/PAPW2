@@ -7,111 +7,78 @@ Inicio
   <h2>New Reviews</h2>
   <div class="panel panel-default panel-transparent">
     <div class="panel-body inicio">
-    		<div class="row">
-    			@foreach($reviews as $newreview)
-          @if($newreview['date']=='05/09/18')
-    			<div class="col-sm-2 resultados">
-	    		  <a href=""><img src="Imagenes/Book.jpg" class="img-responsive" alt="Profile"></a>
-	              <p>{{$newreview['review']}} </p>
-	              <a href="">{{$newreview['author']}}</a> <br>
-                
-                  @if($newreview['stars']==0)
-                  @section('0estrella')
-  	              <span class="glyphicon glyphicon-star-empty"></span>
-  	              <span class="glyphicon glyphicon-star-empty"></span>
-  	              <span class="glyphicon glyphicon-star-empty"></span>
-  	              <span class="glyphicon glyphicon-star-empty"></span>
-  	              <span class="glyphicon glyphicon-star-empty"></span>
-                  @show
-                  @elseif($newreview['stars']==1)
-                  @section('1estrella')
-                  <span class="glyphicon glyphicon-star"></span>
-                  <span class="glyphicon glyphicon-star-empty"></span>
-                  <span class="glyphicon glyphicon-star-empty"></span>
-                  <span class="glyphicon glyphicon-star-empty"></span>
-                  <span class="glyphicon glyphicon-star-empty"></span>
-                  @show
-                  @elseif($newreview['stars']==2)
-                  @section('2estrellas')
-                  <span class="glyphicon glyphicon-star"></span>
-                  <span class="glyphicon glyphicon-star"></span>
-                  <span class="glyphicon glyphicon-star-empty"></span>
-                  <span class="glyphicon glyphicon-star-empty"></span>
-                  <span class="glyphicon glyphicon-star-empty"></span>
-                  @show
-                  @elseif($newreview['stars']==3)
-                  @section('3estrellas')
-                  <span class="glyphicon glyphicon-star"></span>
-                  <span class="glyphicon glyphicon-star"></span>
-                  <span class="glyphicon glyphicon-star"></span>
-                  <span class="glyphicon glyphicon-star-empty"></span>
-                  <span class="glyphicon glyphicon-star-empty"></span>
-                  @show
-                  @elseif($newreview['stars']==4)
-                  @section('4estrellas')
-                  <span class="glyphicon glyphicon-star"></span>
-                  <span class="glyphicon glyphicon-star"></span>
-                  <span class="glyphicon glyphicon-star"></span>
-                  <span class="glyphicon glyphicon-star"></span>
-                  <span class="glyphicon glyphicon-star-empty"></span>
-                  @show
-                  @elseif($newreview['stars']==5)
-                  @section('5estrellas')
-                  <span class="glyphicon glyphicon-star"></span>
-                  <span class="glyphicon glyphicon-star"></span>
-                  <span class="glyphicon glyphicon-star"></span>
-                  <span class="glyphicon glyphicon-star"></span>
-                  <span class="glyphicon glyphicon-star"></span>
-                  @show
-                  @endif
-
-          		</div>
-              @endif
-          	@endforeach	
-          </div>
-    </div>
+  		<div class="row">
+          <section class="NewReviews">
+            @include('ReviewPages')
+          </section>
+      </div>      
+    </div>    
   </div>
+  <script type="text/javascript">
+      $(window).on('hashchange', function() {
+          if (window.location.hash) {
+              var page = window.location.hash.replace('#', '');
+              if (page == Number.NaN || page <= 0) {
+                  return false;
+              } else {
+                  getPosts(page);
+              }
+          }
+      });
+      $(function() {
+          $('body').on('click', '.pagination a', function(e) {
+              e.preventDefault();
+
+              $('#load a').css('color', '#dfecf6');
+              $('#load').append('<img style="position: absolute; left: 0; top: 0; z-index: 100000;" src="/images/loading.gif" />');
+
+              var url = $(this).attr('href');
+              getReviews(url);
+              window.history.pushState("", "", url);
+          });
+
+          function getReviews(url) {
+              $.ajax({
+                  url : url
+                  data: {
+                  "_token": "{{ csrf_token() }}"
+                  }
+              }).done(function (data) {
+                  $('.NewReviews').html(data);
+              }).fail(function () {
+                  alert('Reviews could not be loaded.');
+              });
+          }
+      });
+  </script>
 </div>
 
 <div class="container-fluid dos">
   <h2>Top Calificaciones</h2>
-  <div class="panel panel-default panel-transparent">
-    
+  <div class="panel panel-default panel-transparent">    
     <div class="panel-body inicio2">
     	<div class="row">
-    			@foreach($reviews as $topreview)
-          @if($topreview['stars']==5)
+  			@foreach($TopReviews as $topreview)          
           <div class="col-sm-2 resultados">
-            <a href=""><img src="Imagenes/Book.jpg" class="img-responsive" alt="Profile"></a>
-                <p>{{$topreview['review']}} </p>
-                <a href="">{{$topreview['author']}}</a> <br>
-                
-                  @if($topreview['stars']==5)
-                  @section('5estrellas')
-                  @show
-                  @endif
-
-              </div>
-              @endif
-          @if($topreview['stars']==4)
-          <div class="col-sm-2 resultados">
-            <a href=""><img src="Imagenes/Book.jpg" class="img-responsive" alt="Profile"></a>
-                <p>{{$topreview['review']}} </p>
-                <a href="">{{$topreview['author']}}</a> <br>
-                
-                  @if($topreview['stars']==4)
-                  <span class="glyphicon glyphicon-star"></span>
-                  <span class="glyphicon glyphicon-star"></span>
-                  <span class="glyphicon glyphicon-star"></span>
-                  <span class="glyphicon glyphicon-star"></span>
-                  <span class="glyphicon glyphicon-star-empty"></span>
-                  @endif
-
-              </div>
-              @endif
-            @endforeach 
-          </div>
+            <a href="Review/{{$topreview['id']}}" >
+              @if( isset($topreview['CoverImage']) )
+                <img <?php echo 'src="data:image/jpeg;base64,'.($topreview['CoverImage']).'"'; ?> class="img-responsive" alt="Profile">
+              @else
+                <img src="/Imagenes/Book.jpg" class="img-responsive" alt="Profile">
+              @endif   
+            </a>
+            <p>{{$topreview['ComicTitle']}} #{{$topreview['ComicNum']}}</p>
+            <a href="Profile/{{$topreview['user_id']}}">{{$topreview['userName']}}</a> <br>
+            @for ($i=0; $i < $topreview['stars']; $i++)                      
+              <span class="glyphicon glyphicon-star"></span>
+            @endfor
+            @for ($i=0; $i <5-$topreview['stars']; $i++)                      
+              <span class="glyphicon glyphicon-star-empty"></span>
+            @endfor
+          </div>             
+        @endforeach 
       </div>
+    </div>
   </div>
 </div>
 

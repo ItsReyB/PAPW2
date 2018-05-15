@@ -67,7 +67,7 @@
 								@endif
 							@endif		    
 					</ul>
-					<form class="navbar-form navbar-left" action="/action_page.php">
+					<form class="navbar-form navbar-left" action="/Search">
 						<div class="form-group">
 						<input type="text" class="form-control" placeholder="Search" name="search">
 						</div>

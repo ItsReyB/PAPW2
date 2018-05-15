@@ -52,46 +52,21 @@ Search
      <div class="row">
       @foreach($reviews as $review)
           <div class="col-sm-2 resultados">
-            <a href=""><img src="Imagenes/Book.jpg" class="img-responsive" alt="Profile"></a>
-                <p>{{$review['review']}}</p>
-                <a href="">{{$review['author']}}</a> <br>
-                @if($review['stars']==0)
-                  <span class="glyphicon glyphicon-star-empty"></span>
-                  <span class="glyphicon glyphicon-star-empty"></span>
-                  <span class="glyphicon glyphicon-star-empty"></span>
-                  <span class="glyphicon glyphicon-star-empty"></span>
-                  <span class="glyphicon glyphicon-star-empty"></span>
-                  @elseif($review['stars']==1)
+            <a href="Review/{{$review['id']}}" >
+              @if( isset($review['CoverImage']) )
+                <img <?php echo 'src="data:image/jpeg;base64,'.($review['CoverImage']).'"'; ?> class="img-responsive" alt="Profile">
+              @else
+                <img src="/Imagenes/Book.jpg" class="img-responsive" alt="Profile">
+              @endif
+            </a>
+                <p>{{$review['ComicTitle']}} #{{$review['ComicNum']}}</p>
+                <a href="Profile/{{$review['user_id']}}">{{$review['userName']}}</a> <br>               
+                @for ($i=0; $i < $review['stars']; $i++)                      
                   <span class="glyphicon glyphicon-star"></span>
+                @endfor
+                @for ($i=0; $i <5-$review['stars']; $i++)                      
                   <span class="glyphicon glyphicon-star-empty"></span>
-                  <span class="glyphicon glyphicon-star-empty"></span>
-                  <span class="glyphicon glyphicon-star-empty"></span>
-                  <span class="glyphicon glyphicon-star-empty"></span>
-                  @elseif($review['stars']==2)
-                  <span class="glyphicon glyphicon-star"></span>
-                  <span class="glyphicon glyphicon-star"></span>
-                  <span class="glyphicon glyphicon-star-empty"></span>
-                  <span class="glyphicon glyphicon-star-empty"></span>
-                  <span class="glyphicon glyphicon-star-empty"></span>
-                  @elseif($review['stars']==3)
-                  <span class="glyphicon glyphicon-star"></span>
-                  <span class="glyphicon glyphicon-star"></span>
-                  <span class="glyphicon glyphicon-star"></span>
-                  <span class="glyphicon glyphicon-star-empty"></span>
-                  <span class="glyphicon glyphicon-star-empty"></span>
-                  @elseif($review['stars']==4)
-                  <span class="glyphicon glyphicon-star"></span>
-                  <span class="glyphicon glyphicon-star"></span>
-                  <span class="glyphicon glyphicon-star"></span>
-                  <span class="glyphicon glyphicon-star"></span>
-                  <span class="glyphicon glyphicon-star-empty"></span>
-                  @elseif($review['stars']==5)
-                  <span class="glyphicon glyphicon-star"></span>
-                  <span class="glyphicon glyphicon-star"></span>
-                  <span class="glyphicon glyphicon-star"></span>
-                  <span class="glyphicon glyphicon-star"></span>
-                  <span class="glyphicon glyphicon-star"></span>
-                  @endif
+                @endfor
           </div>
       @endforeach
       </div>

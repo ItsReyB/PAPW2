@@ -67,7 +67,7 @@ class Controller extends BaseController
     		'0' =>['username' => 'Rey', 'joindate' =>'05/09/18', 'numberofreviews' =>'3', 'isadmin' => 'true', 'isprofile' => 'true'],
     		'1'=>['username' => 'Jerry', 'joindate' =>'05/08/18', 'numberofreviews' =>'2', 'isadmin' => 'false','isprofile' => 'true']
     	];
-    	
+    
     return view('Inicio', compact('reviews','userinfo'));
     
     }

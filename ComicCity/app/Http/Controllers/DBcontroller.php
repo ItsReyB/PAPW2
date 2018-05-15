@@ -6,6 +6,9 @@ use App\CCuser;
 use App\CCpost;
 use App\CCgenre;
 use App\CCeditorial;
+use App\CCfollowing;
+
+use Illuminate\Http\Request;
 
 class DBcontroller extends Controller
 {
@@ -20,6 +23,10 @@ class DBcontroller extends Controller
     	$NewUser->ProfileImage = base64_encode(file_get_contents( public_path().'/Imagenes/User.jpg'	) );
 
     	$NewUser->save();
+        $_SESSION['userID']=$NewUser['id'];
+        $_SESSION['user']=$NewUser['name'];
+        $_SESSION['isAdmin']=0;
+
 		return redirect('Profile/'.$NewUser->id);	
     }
  	public function Logging(){
@@ -33,72 +40,56 @@ class DBcontroller extends Controller
  			}
  		}
  		if($LOGG){
-    		$reviews=[
-				'0' => ['review' => 'Review one','author' => 'Rey','stars' => '0','date' =>'05/09/18','following'=> 'true','genero' =>'Terror'],
-				'1' => ['review' => 'Review two','author' => 'Jerry','stars' => '1','date' =>'05/08/18','following'=> 'false','genero' =>'Adventure'],
-				'2' => ['review' => 'Review three','author' => 'Jerry','stars' => '2','date' =>'15/07/18','following'=> 'true','genero' =>'Superheros'],
-				'3' => ['review' => 'Review four','author' => 'Author four','stars' => '3','date' =>'02/09/18','following'=> 'false','genero' =>'Romance'],
-				'4' => ['review' => 'Review five','author' => 'Rey','stars' => '4','date' =>'04/08/18','following'=> 'true','genero' =>'Noir'],
-				'5' => ['review' => 'Review six','author' => 'Rey','stars' => '5','date' =>'05/09/18','following'=> 'false','genero' =>'Terror']
-			];
-			$userinfo=[
-				'0' =>['username' => 'Rey', 'joindate' =>'05/09/18', 'numberofreviews' =>'3', 'isadmin' => 'true', 'isprofile' => 'true'],
-				'1'=>['username' => 'Jerry', 'joindate' =>'05/08/18', 'numberofreviews' =>'2', 'isadmin' => 'false','isprofile' => 'true']
-	    	];
-
 	    	session_start();
     	    $_SESSION['userID']=$AUser['id'];
     	    $_SESSION['user']=$AUser['name'];
     	    $_SESSION['isAdmin']=0;
-	    	return view('Inicio', compact('reviews','userinfo'));
 
-	    }else{
-	    	$userinfo=[
-    			'0' =>['username' => 'Rey', 'pass'=>'1234','joindate' =>'05/09/18', 'numberofreviews' =>'3', 'isadmin' => 'true', 'isprofile' => 'true'],
-    			'1'=>['username' => 'Jerry','pass'=>'5678', 'joindate' =>'05/08/18', 'numberofreviews' =>'2', 'isadmin' => 'false','isprofile' => 'true']
-    		];
-    		return view('Login', compact('userinfo'));
+            return redirect('Inicio');
+
+	    }else{	    	
+    		return view('Login');
 	    }	
     }
     public function LoggingOut(){
 	    session_start();
 	    session_regenerate_id();
 	    session_destroy();
-    	$userinfo=[
-    			'0' =>['username' => 'Rey', 'pass'=>'1234','joindate' =>'05/09/18', 'numberofreviews' =>'3', 'isadmin' => 'true', 'isprofile' => 'true'],
-    			'1'=>['username' => 'Jerry','pass'=>'5678', 'joindate' =>'05/08/18', 'numberofreviews' =>'2', 'isadmin' => 'false','isprofile' => 'true']
-    		];
-    	return view('Login', compact('userinfo'));
+    	return view('Login');
     }
     public function getAProfile($id){
 
-	    $UsersExist = CCuser::all();
- 		foreach ($UsersExist as $UE) {
- 			if($UE['id']==$id){				
-				$AUser = $UE;
- 			}
- 		}	    
+	    $AUser = CCuser::find($id); 	
+        $reviews = CCpost::ofUser($AUser['id'])->get();
 
- 		$user=['username' => $AUser['name'], 'joindate' => $AUser['created_at'], 'numberofreviews' =>'3', 'isadmin' => 'false', 'id' => $AUser['id'],
+ 		$user=['username' => $AUser['name'], 'joindate' => $AUser['created_at'], 'numberofreviews' =>$reviews->count(), 'isadmin' => 'false', 'id' => $AUser['id'],
  		'ProfileImage' => $AUser['ProfileImage']];
     	
-    	$reviews=[
-				'0' => ['review' => 'Review one','author' => 'Rey','stars' => '0','date' =>'05/09/18','following'=> 'true','genero' =>'Terror'],
-				'1' => ['review' => 'Review two','author' => 'Jerry','stars' => '1','date' =>'05/08/18','following'=> 'false','genero' =>'Adventure'],
-				'2' => ['review' => 'Review three','author' => 'Jerry','stars' => '2','date' =>'15/07/18','following'=> 'true','genero' =>'Superheros'],
-				'3' => ['review' => 'Review four','author' => 'Author four','stars' => '3','date' =>'02/09/18','following'=> 'false','genero' =>'Romance'],
-				'4' => ['review' => 'Review five','author' => 'Rey','stars' => '4','date' =>'04/08/18','following'=> 'true','genero' =>'Noir'],
-				'5' => ['review' => 'Review six','author' => 'Rey','stars' => '5','date' =>'05/09/18','following'=> 'false','genero' =>'Terror']
-			];
-		$actual = true;
+    		
         session_start();
+        /*
         $_SESSION['userID']=$AUser['id'];
         $_SESSION['user']=$AUser['name'];
         $_SESSION['isAdmin']=0;
-    	return view('Profile', compact('reviews', 'user', 'actual'));
+        */
+        $actual = ($_SESSION['userID']==$AUser['id']);
+
+        $Isfollowing = false;
+        $existFR = 0;
+        
+        $followings = CCfollowing::all();
+        foreach ($followings as $fs) {
+            if($fs['follower_id']== $_SESSION['userID']    && $fs['followed_id'] == $AUser['id']){                
+                $existFR = $fs['id'];
+            }
+        }
+        $ActualFollowing = CCfollowing::find($existFR);
+        $Isfollowing = $ActualFollowing['SN'];
+
+    	return view('Profile', compact('reviews', 'user', 'actual', 'Isfollowing', 'existFR'));
     }
     public function WriteReview($string){
-    	$reviewinfo=['ComicTitle' =>'','publishdate' => '','ComicNum' => '','sinopsis' => '','Editorial' => '','writer' => '','artist' => '','genre' => '',    		'pages' => '','text' => '','stars' => '0', 'ed' => '', 'genero' =>''];	    	
+    	$reviewinfo=['ComicTitle' =>'','publishdate' => '','ComicNum' => '','sinopsis' => '','Editorial' => '','writer' => '','artist' => '','genre' => '',    		'pages' => '','text' => '','stars' => 0, 'ed' => '', 'genero' =>'', 'user_id' => 0];	    	
 		$reviews=[
 			'0' => ['review' => 'Review one','author' => 'Rey','stars' => '0','date' =>'05/09/18','following'=> 'true','genero' =>'Terror'],
 			'1' => ['review' => 'Review two','author' => 'Jerry','stars' => '1','date' =>'05/08/18','following'=> 'false','genero' =>'Adventure'],
@@ -156,8 +147,10 @@ class DBcontroller extends Controller
     		foreach ($exists as $e) {
     			if($e['ComicTitle'] == $_POST['Title'] && 	$e['ComicNum']== $_POST['Issue'] &&		 	 $e['user_id'] == $_POST['user'])
     				$NewPost = CCpost::find($e['id']);
-    			else
-    				$NewPost = new CCpost;    				
+    			else{
+    				$NewPost = new CCpost;
+                	$NewPost->CoverImage = base64_encode(file_get_contents( public_path().'/Imagenes/Book.jpg'   ) );			
+                }
     		}	
 		}else{
 			$NewPost = CCpost::find($_POST['pid']);
@@ -210,12 +203,8 @@ class DBcontroller extends Controller
     			$NewPost->stars = 0;
     			break;
     	}
-    	if(isset($NewPost->CoverImage)){
-    		if($_FILES['ComicPic']['size']>0)
-    			$NewPost->CoverImage = 	base64_encode(file_get_contents($_FILES['ComicPic']['tmp_name']));
-    	}else{
-    		$NewPost->CoverImage = base64_encode(file_get_contents( public_path().'/Imagenes/Book.jpg'	) );
-    	}
+		if($_FILES['ComicPic']['tmp_name'] != '')
+			$NewPost->CoverImage = 	base64_encode(file_get_contents($_FILES['ComicPic']['tmp_name']));
 		
 
     	$NewPost->save();
@@ -225,12 +214,81 @@ class DBcontroller extends Controller
     	session_start();
     	$users = CCuser::find($_SESSION['userID']);
     	$users->name = $_POST['Username'];
-    	if($_FILES['ProfilePic']['size']>0)
+    	if($_FILES['ProfilePic']['tmp_name'] != '')
     		$users->ProfileImage = base64_encode(file_get_contents($_FILES['ProfilePic']['tmp_name']));
 
     	$users->save();
     	return redirect('Profile/'.$_SESSION['userID']);
     }
+
+    public function Search(){
+        $reviews = CCpost::Title($_GET['search'])->get();            
+        foreach ($reviews as $r) {
+            $user = CCuser::find($r['user_id']);
+            $r['userName'] = $user['name'];
+        }
+        return view('Search', compact('reviews'));
+    }
+    public function Main(){
+        $NewReviews = CCpost::News()->get();
+        $reviews=[
+                '0' => ['review' => 'Review one','author' => 'Rey','stars' => '0','date' =>'05/09/18','following'=> 'true','genero' =>'Terror'],
+                '1' => ['review' => 'Review two','author' => 'Jerry','stars' => '1','date' =>'05/08/18','following'=> 'false','genero' =>'Adventure'],
+                '2' => ['review' => 'Review three','author' => 'Jerry','stars' => '2','date' =>'15/07/18','following'=> 'true','genero' =>'Superheros'],
+                '3' => ['review' => 'Review four','author' => 'Author four','stars' => '3','date' =>'02/09/18','following'=> 'false','genero' =>'Romance'],
+                '4' => ['review' => 'Review five','author' => 'Rey','stars' => '4','date' =>'04/08/18','following'=> 'true','genero' =>'Noir'],
+                '5' => ['review' => 'Review six','author' => 'Rey','stars' => '5','date' =>'05/09/18','following'=> 'false','genero' =>'Terror']
+            ];
+            
+        foreach ($NewReviews as $r) {
+            $user = CCuser::find($r['user_id']);
+            $r['userName'] = $user['name'];
+        }
+        $TopReviews = CCpost::Top()->take(5)->get();
+
+        return view('Inicio', compact('NewReviews','reviews','TopReviews' ));
+    }
+
+    public function Followuser(){
+        if($_POST['exist'] > 0){
+            $Follow = CCfollowing::find($_POST['exist']);
+            $Follow['SN'] = !($_POST['SN']);
+            $Follow->save();        
+           
+        }else{
+            $Follow = new CCfollowing;
+            $Follow['SN'] = true;
+            $Follow['follower_id'] = $_POST['er'];
+            $Follow['followed_id'] = $_POST['ed'];
+            $Follow->save();
+        }
+    }
+
+    public function index(Request $request)
+    {
+        $NewReviews = CCpost::News()->paginate(6);
+        $reviews=[
+                '0' => ['review' => 'Review one','author' => 'Rey','stars' => '0','date' =>'05/09/18','following'=> 'true','genero' =>'Terror'],
+                '1' => ['review' => 'Review two','author' => 'Jerry','stars' => '1','date' =>'05/08/18','following'=> 'false','genero' =>'Adventure'],
+                '2' => ['review' => 'Review three','author' => 'Jerry','stars' => '2','date' =>'15/07/18','following'=> 'true','genero' =>'Superheros'],
+                '3' => ['review' => 'Review four','author' => 'Author four','stars' => '3','date' =>'02/09/18','following'=> 'false','genero' =>'Romance'],
+                '4' => ['review' => 'Review five','author' => 'Rey','stars' => '4','date' =>'04/08/18','following'=> 'true','genero' =>'Noir'],
+                '5' => ['review' => 'Review six','author' => 'Rey','stars' => '5','date' =>'05/09/18','following'=> 'false','genero' =>'Terror']
+            ];
+            
+        foreach ($NewReviews as $r) {
+            $user = CCuser::find($r['user_id']);
+            $r['userName'] = $user['name'];
+        }
+        $TopReviews = CCpost::Top()->take(5)->get();
+
+        if ($request->ajax()) {
+            return view('Inicio', ['NewReviews' => $NewReviews]) ->render();  
+        }
+
+        return view('Inicio', compact('NewReviews', 'reviews','TopReviews'));
+    }
+
     //end functions
 }
 //endcontroller
