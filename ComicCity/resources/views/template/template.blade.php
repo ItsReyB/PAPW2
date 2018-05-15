@@ -46,15 +46,8 @@
 						<li class="active"><a href="/Inicio">Inicio</a></li>
 						<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Categorias <span class="caret"></span></a>
 						<ul class="dropdown-menu">
-							<li><a href="#">Action</a></li>
-							<li><a href="#">Adventure</a></li>
-							<li><a href="#">Drama</a></li>
-							<li><a href="#">Fantasy</a></li>
-							<li><a href="#">Noir</a></li>
-							<li><a href="#">Romance</a></li>
-							<li><a href="#">Sci-Fi</a></li>
-							<li><a href="#">Superheros</a></li>
-							<li><a href="#">Terror</a></li>
+							<li><a href="/Search/Adventure" content="{{ csrf_token() }}">Action</a></li>
+							
 						</ul>
 						</li>
 							@if($_SESSION['isAdmin']=='false')

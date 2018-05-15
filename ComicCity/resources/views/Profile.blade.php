@@ -69,9 +69,6 @@ Profile
                   xmlhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
                   xmlhttp.send(data);
                 }
-                      
-                  
-                
                </script>
             @else
             <!--en su perfil-->            

@@ -215,22 +215,38 @@ Review
     <!--comentarios-->
     <div class="row otro">
       @if(!$new)
-      <div class="col-sm-10 ">
+      <div class="col-sm-10 ">        
         @foreach($comments as $comment)
           <div class="row comentario">
             <div class="col-sm-12">
-              <a href="#">{{$comment['user']}}</a>
-              <p>{{$comment['comment']}}</p>
+              <a href="/Profile/{{$comment['user_id']}}">{{$comment['name']}}</a>
+              <p>{{$comment['text']}}</p>
             </div>
           </div>
         @endforeach
         <div class="row coment">
           <div class="col-sm-12 comenta">
-            <form class="form-horizontal" action="">
-              <input type="text" class="form-control" id="comentario" placeholder="Leave a coment" name="comentario" required="required">
+            <form class="form-horizontal" >
+              <input type="text" class="form-control" id="comentario" placeholder="Leave a coment" name="comentario" required="required">              
               <br>
-              <button type="submit" class="btn btn-default">Submit</button>
+              <button type="button" class="btn btn-default" onclick="comment()" >Submit</button>
             </form>
+            <script>  
+              function comment() {            
+                var data = "user={{$_SESSION['userID']}}&post={{$reviewinfo['id']}}&_token={{csrf_token()}}&comentario=";
+                data = data.concat( document.getElementById('comentario').value );
+                var xmlhttp = new XMLHttpRequest();
+                xmlhttp.onreadystatechange = function() {
+                  if (this.readyState == 4 && this.status == 200) {
+                    document.getElementById('comentario').value="";
+                    
+                  }
+                };
+                xmlhttp.open("POST", "/addComment", true);
+                xmlhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+                xmlhttp.send(data);
+              }
+             </script>
           </div>
         </div>      
       </div>

@@ -54,7 +54,7 @@ Inicio
 </div>
 
 <div class="container-fluid dos">
-  <h2>Top Calificaciones</h2>
+  <h2>Top 5 Calificaciones</h2>
   <div class="panel panel-default panel-transparent">    
     <div class="panel-body inicio2">
     	<div class="row">

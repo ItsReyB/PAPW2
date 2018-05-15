@@ -39,7 +39,10 @@ Route::get('/Review/{id}', ['uses'=>'DBcontroller@ReadReview'])->where('id','[0-
 Route::post('/add', 'DBcontroller@Post');
 
 Route::get('/Search', 'DBcontroller@Search');
+Route::get('/Search/{Categoria}', ['uses'=>'DBcontroller@SearchCat'])->where('Categoria','[a-zA-Z]+');
 
 Route::get('/Inicio', 'DBcontroller@index');
 Route::post('/Follow', 'DBcontroller@Followuser');
+
+Route::post('/addComment', 'DBcontroller@Comment');
 //---------------------------------------

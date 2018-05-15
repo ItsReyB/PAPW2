@@ -7,6 +7,7 @@ use App\CCpost;
 use App\CCgenre;
 use App\CCeditorial;
 use App\CCfollowing;
+use App\CCcomment;
 
 use Illuminate\Http\Request;
 
@@ -107,7 +108,7 @@ class DBcontroller extends Controller
 
 		return view('Review', compact('reviewinfo','reviews','comments', 'new', 'generos'));
     }
-    public function ReadReview($id){
+    public function ReadReview($id, Request $request){
 
     	$ReviewExist = CCpost::all();
  		foreach ($ReviewExist as $RE) {
@@ -123,10 +124,8 @@ class DBcontroller extends Controller
 			'4' => ['review' => 'Review five','author' => 'Rey','stars' => '4','date' =>'04/08/18','following'=> 'true','genero' =>'Noir'],
 			'5' => ['review' => 'Review six','author' => 'Rey','stars' => '5','date' =>'05/09/18','following'=> 'false','genero' =>'Terror']
 		];
-		$comments=[
-			'0'=>['user'=>'Rey', 'comment'=>'Un comentario'],
-			'1'=>['user'=>'Jerry', 'comment'=>'Otro comentario']
-		];
+
+        $comments = CCcomment::withName()->get();
 		$new=false;
 
 		$generos = CCgenre::all();
@@ -139,6 +138,9 @@ class DBcontroller extends Controller
 			if($e['id'] == $reviewinfo['Editorial'])
 			$reviewinfo->ed = $e['name'] ;
 		}
+
+       
+
 		return view('Review', compact('reviewinfo','reviews','comments', 'new', 'generos'));
     }
     public function Post(){
@@ -283,10 +285,24 @@ class DBcontroller extends Controller
         $TopReviews = CCpost::Top()->take(5)->get();
 
         if ($request->ajax()) {
-            return view('Inicio', ['NewReviews' => $NewReviews]) ->render();  
+            return view('Inicio', ['NewReviews' => $NewReviews]) ->render();
         }
-
         return view('Inicio', compact('NewReviews', 'reviews','TopReviews'));
+    }
+    public function SearchCat($categoria){
+        $reviews = CCpost::Categoria($categoria)->get(); 
+        foreach ($reviews as $r) {
+            $user = CCuser::find($r['user_id']);
+            $r['userName'] = $user['name'];
+        }
+        return view('Search', compact('reviews'));
+    }
+    public function Comment(Request $request){
+
+        $NewComment = new CCcomment;
+        $NewComment->text = $_POST['comentario'];
+        $NewComment->user_id = $_POST['user'];
+        $NewComment->post_id = $_POST['post'];
     }
 
     //end functions

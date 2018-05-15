@@ -22,4 +22,8 @@ class CCpost extends Model
 
         return $query->orderBy('stars', 'DESC');
     }
+    public function scopeCategoria($query, $Categoria){
+
+        return $query->join('c_cgenres','c_cposts.genre_id', 'c_cgenres.id')->where('c_cgenres.genre', $Categoria);
+    }
 }
