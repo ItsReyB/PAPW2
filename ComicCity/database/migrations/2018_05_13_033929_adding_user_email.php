@@ -13,9 +13,9 @@ class AddingUserEmail extends Migration
      */
     public function up()
     {
-        Schema::table('c_cusers', function (Blueprint $table) {
+        /*Schema::table('c_cusers', function (Blueprint $table) {
             $table->string('email', 100)->after('name');
-        });
+        });*/
     }
 
     /**

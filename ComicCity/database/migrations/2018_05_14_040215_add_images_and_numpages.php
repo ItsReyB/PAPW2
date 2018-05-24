@@ -13,9 +13,9 @@ class AddImagesAndNumpages extends Migration
      */
     public function up()
     {
-        Schema::table('c_cposts', function (Blueprint $table) {            
+        /*Schema::table('c_cposts', function (Blueprint $table) {            
             $table->integer('pages');
-        });      
+        });  */    
     }
 
     /**

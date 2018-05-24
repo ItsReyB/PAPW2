@@ -13,9 +13,9 @@ class DropdateCommentCol extends Migration
      */
     public function up()
     {
-        Schema::table('c_ccomments', function (Blueprint $table) {            
+        /*Schema::table('c_ccomments', function (Blueprint $table) {            
             $table->dropColumn('CommentDate');
-        });
+        });*/
     }
 
     /**

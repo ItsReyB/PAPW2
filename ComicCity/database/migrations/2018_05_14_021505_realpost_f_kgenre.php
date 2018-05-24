@@ -13,9 +13,9 @@ class RealpostFKgenre extends Migration
      */
     public function up()
     {
-       Schema::table('c_cposts', function (Blueprint $table) {            
+       /*Schema::table('c_cposts', function (Blueprint $table) {            
             $table->foreign('genre_id')->references('id')->on('c_cgenres');
-        });
+        });*/
 
     }
 

@@ -13,13 +13,13 @@ class CreateGenresTable extends Migration
      */
     public function up()
     {
-        Schema::create('c_cgenres', function (Blueprint $table) {
+        /*Schema::create('c_cgenres', function (Blueprint $table) {
             //$table->increments('id');
             $table->increments('id')->unsigned();            
             $table->string('genre');
 
             $table->timestamps();
-        });
+        });*/
     }
 
     /**

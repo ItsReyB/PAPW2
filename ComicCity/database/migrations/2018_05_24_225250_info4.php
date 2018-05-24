@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class Realimages extends Migration
+class Info4 extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,10 @@ class Realimages extends Migration
      */
     public function up()
     {
-         /*DB::statement('alter table c_cposts add CoverImage LONGBLOB');
-        DB::statement('alter table c_cusers add ProfileImage LONGBLOB');*/
+        //
+        Schema::table('c_cusers', function (Blueprint $table) {
+            $table->string('email', 100)->after('name');
+        });
     }
 
     /**

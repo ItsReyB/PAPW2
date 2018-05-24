@@ -13,12 +13,12 @@ class AddActiveAndFlwBool extends Migration
      */
     public function up()
     {
-        Schema::table('c_cposts', function (Blueprint $table) {            
+        /*Schema::table('c_cposts', function (Blueprint $table) {            
             $table->boolean('Active');
         });
         Schema::table('c_cfollowings', function (Blueprint $table) {            
             $table->boolean('SN');
-        }); 
+        }); */
     }
 
     /**

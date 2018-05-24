@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class RealUpdate1 extends Migration
+class Info3 extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,7 @@ class RealUpdate1 extends Migration
     public function up()
     {
         //
-       /* Schema::table('c_cposts', function (Blueprint $table) {
+        Schema::table('c_cposts', function (Blueprint $table) {
                 $table->integer('user_id')->unsigned();
                 $table->foreign('user_id')->references('id')->on('c_cusers');
             });
@@ -35,7 +35,7 @@ class RealUpdate1 extends Migration
         Schema::table('c_cfollowings', function (Blueprint $table) {
                 $table->integer('followed_id')->unsigned();
                 $table->foreign('followed_id')->references('id')->on('c_cusers');
-            });*/
+            });
     }
 
     /**

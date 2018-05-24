@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class PostAdditionalInfo extends Migration
+class Info5 extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,14 @@ class PostAdditionalInfo extends Migration
      */
     public function up()
     {
-        /*Schema::table('c_cposts', function (Blueprint $table) {            
+        //
+        Schema::table('c_cposts', function (Blueprint $table) {            
             $table->string('publishdate')->after('ComicNum');
             $table->string('sinopsis',200)->after('publishdate');
             $table->string('writer')->after('sinopsis');
             $table->string('artist')->after('writer');    
             $table->integer('stars')->after('text');
-        });   */     
+        });     
     }
 
     /**

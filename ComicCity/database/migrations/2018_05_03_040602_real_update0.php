@@ -14,10 +14,10 @@ class RealUpdate0 extends Migration
     public function up()
     {
         //
-        Schema::table('c_cposts', function (Blueprint $table) {
+        /*Schema::table('c_cposts', function (Blueprint $table) {
                 $table->integer('Editorial')->unsigned();
                 $table->foreign('Editorial')->references('id')->on('c_ceditorials');
-            });
+            });*/
     }
 
     /**
