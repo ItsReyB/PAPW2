@@ -316,6 +316,26 @@ input{
 	color: #000000;
 }
 
+label{
+	color: #cdb0d9;
+	size: 10px;
+}
+label.labelgreen{
+	color: #22d6a8;
+	size: 10px;
+}
+
+button.greenbutton{
+	background-color: #22d6a8;
+	
+}
+
+a{
+	color:#FFFFFF;
+}
+button.buttonpurple{
+	background-color: #cdb0d9;
+}
 
 
 

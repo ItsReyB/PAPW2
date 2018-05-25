@@ -102,7 +102,7 @@ Review
     <div class="row reseña">
       <div class="col-sm-12">
         <br>
-        <label for="stars">Estrellas:</label>
+        <label for="stars" class="labelgreen">Estrellas:</label>
         <select class="form-control" name= "stars" id="stars" required="required">
           <option <?php if($reviewinfo['stars'] == 0) {echo 'selected';} ?> ><p>0 Stars</p></option>
           <option <?php if($reviewinfo['stars'] == 1) {echo 'selected';} ?>><p>1 Star</p></option>
@@ -112,14 +112,15 @@ Review
           <option <?php if($reviewinfo['stars'] == 5) {echo 'selected';} ?>><p>5 Stars</p></option>
         </select>                    
         <hr>
-        <label for="review">Review:</label>      
+        <label for="review" class="labelgreen">Review:</label>      
         <textarea class="form-control" rows="5" name="review" id="review" placeholder="Write review" required="required">{{$reviewinfo['text']}}</textarea>
         <br>
         @if(!$new)
           <input type="text" name="pid" hidden="true" value={{$reviewinfo['id']}}>
         @endif
         <input type="text" name="user" hidden="true" value={{$_SESSION['userID']}}>
-        <button type="submit" class="btn btn-default" id="submit">Submit</button>
+        <button type="submit" class="btn btn-default greenbutton" id="submit">Submit</button>
+        <button class="btn btn-danger" id="delete">Delete</button>
       </div>
     </div>              
   </form>
@@ -142,6 +143,7 @@ Review
           <hr>
           <div class="row">
             <div class="col-sm-4">
+              <label>Publish Date:</label>
               <p>{{$reviewinfo['publishdate']}}</p>
             </div>
             <!--Boton para ver/ocultar seccion de nuevo/edicion-->
@@ -151,12 +153,14 @@ Review
               @endif
             </div>
             <div class="col-sm-4">
+              <label>Issue:</label>
               <p>{{$reviewinfo['ComicNum']}}</p>
             </div>
           </div>
           <hr>
           <div class="row">
             <div class="col-sm-12 ">
+              <label>Sinopsis:</label>
               <p>{{$reviewinfo['sinopsis']}}</p>
             </div>
           </div>
@@ -164,26 +168,31 @@ Review
         <div class="col-sm-2">
           <div class="row">
             <div class="col-sm-12">
+              <label>Editorial:</label>
               <p>{{$reviewinfo['ed']}}</p>
             </div>
           </div>
           <div class="row">
             <div class="col-sm-12">
+              <label>Writer:</label>
               <p>{{$reviewinfo['writer']}}</p>
             </div>
           </div>
           <div class="row">
             <div class="col-sm-12">
+              <label>Artist:</label>
               <p>{{$reviewinfo['artist']}}</p>
             </div>
           </div>
           <div class="row">
             <div class="col-sm-12">
+              <label>Genre:</label>
               <p> {{$reviewinfo['genero']}}</p>
             </div>
           </div>
           <div class="row">
             <div class="col-sm-12">
+              <label>Pages:</label>
               <p>{{$reviewinfo['pages']}}</p>
             </div>
           </div>
@@ -199,7 +208,17 @@ Review
             <span class="glyphicon glyphicon-star-empty"></span>
           @endfor
         <hr>
+
+        <label class="labelgreen">By:</label>
+        <br>
+        <img src="/Imagenes/User.jpg" class="img-thumbnail" alt="Cinque Terre" width="100" height="100">
+        <br>
+        <a href="">Username</a>
+        <hr>
+
         <p>{{$reviewinfo['text']}}</p>
+
+        <button type="button" class="btn btn-default greenbutton">Like This!</button>
         </div>
       </div>
     </form>
@@ -219,6 +238,7 @@ Review
         @foreach($comments as $comment)
           <div class="row comentario">
             <div class="col-sm-12">
+              <img src="/Imagenes/User.jpg" class="img-thumbnail" alt="Cinque Terre" width="50" height="50">
               <a href="/Profile/{{$comment['user_id']}}">{{$comment['name']}}</a>
               <p>{{$comment['text']}}</p>
             </div>
@@ -226,7 +246,13 @@ Review
         @endforeach
         <div class="row coment">
           <div class="col-sm-12 comenta">
+            <div class="row">
+              <div class="col-sm-1">
+                <img src="/Imagenes/User.jpg" class="img-thumbnail" alt="Cinque Terre" width="50" height="50">
+              </div>
+              <div class="col-sm-11">
             <form class="form-horizontal" >
+              
               <input type="text" class="form-control" id="comentario" placeholder="Leave a coment" name="comentario" required="required">              
               <br>
               <button type="button" class="btn btn-default" onclick="comment()" >Submit</button>
@@ -247,6 +273,8 @@ Review
                 xmlhttp.send(data);
               }
              </script>
+             </div>
+           </div>
           </div>
         </div>      
       </div>

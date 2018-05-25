@@ -72,14 +72,16 @@ Profile
                </script>
             @else
             <!--en su perfil-->            
-            <button type="button" class="btn btn-default" id="showForm">Edit</button><br>
+            <button type="button" class="btn btn-default buttonpurple" id="showForm">Edit</button><br>
               <form id="form1" action="/editMP" method="POST" enctype="multipart/form-data">
                 {{ csrf_field() }} 
                 <b>Username:</b> <input type="text" name="Username" required="required" value={{$user['username']}}>
                 <br><br>
                 <b>Profile Picture:</b><input type="file" name="ProfilePic">
                 <br><br>
-                <button type="submit" class="btn btn-default" id="submit">Submit</button>
+                <button type="submit" class="btn btn-default buttonpurple" id="submit">Submit</button>
+                <br><br>
+                <button class="btn btn-danger" id="deleteaccount">Eliminar cuenta</button>
               </form>
             @endif          
 
