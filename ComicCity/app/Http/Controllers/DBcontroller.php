@@ -146,16 +146,16 @@ class DBcontroller extends Controller
     public function Post(){
 		if(!isset(	$_POST['pid']	)	){
     		$exists = CCpost::all();
+            $NewPost = new CCpost;
     		foreach ($exists as $e) {
     			if($e['ComicTitle'] == $_POST['Title'] && 	$e['ComicNum']== $_POST['Issue'] &&		 	 $e['user_id'] == $_POST['user'])
     				$NewPost = CCpost::find($e['id']);
     			else{
-    				$NewPost = new CCpost;
                 	$NewPost->CoverImage = base64_encode(file_get_contents( public_path().'/Imagenes/Book.jpg'   ) );			
                 }
     		}	
-            if(is_null($exists))
-                $NewPost = new CCpost;
+            
+                
 		}else{
 			$NewPost = CCpost::find($_POST['pid']);
 		}	
