@@ -106,8 +106,8 @@ class DBcontroller extends Controller
         if(!isset($_SESSION['userID']))
             return redirect('Login');
 
-    	$ReviewExist = CCpost::find($id);
-        if(is_null($ReviewExist))
+    	$reviewinfo = CCpost::find($id);
+        if(is_null($reviewinfo))
             return redirect('Login');
 
 		$reviews=[
@@ -137,18 +137,18 @@ class DBcontroller extends Controller
 
 		return view('Review', compact('reviewinfo','reviews','comments', 'new', 'generos'));
     }
-    public function Post(){
+    public function Post(){        
 		if(!isset(	$_POST['pid']	)	){
-    		$exists = CCpost::all();
-            $NewPost = new CCpost;
+
+    		$exists = CCpost::all();            
     		foreach ($exists as $e) {
     			if($e['ComicTitle'] == $_POST['Title'] && 	$e['ComicNum']== $_POST['Issue'] &&		 	 $e['user_id'] == $_POST['user'])
     				$NewPost = CCpost::find($e['id']);
     			else{
+                    $NewPost = new CCpost;
                 	$NewPost->CoverImage = base64_encode(file_get_contents( public_path().'/Imagenes/Book.jpg'   ) );			
                 }
-    		}	
-            
+    		}	            
                 
 		}else{
 			$NewPost = CCpost::find($_POST['pid']);
@@ -172,6 +172,7 @@ class DBcontroller extends Controller
 		$NewPost->writer = $_POST['Autor'];
     	$NewPost->artist = $_POST['Artist'];
     	$NewPost->pages = $_POST['numPages'];
+        $NewPost->Active=0;
 
     	$generos = CCgenre::all();
     	foreach ($generos as $gen) {
