@@ -65,6 +65,9 @@ class DBcontroller extends Controller
             return redirect('Login');
 
 	    $AUser = CCuser::find($id); 	
+        if(is_null($AUser))
+            return redirect('Login');
+
         $reviews = CCpost::ofUser($AUser['id'])->get();
 
  		$user=['username' => $AUser['name'], 'joindate' => $AUser['created_at'], 'numberofreviews' =>$reviews->count(), 'isadmin' => 'false', 'id' => $AUser['id'],
@@ -93,34 +96,20 @@ class DBcontroller extends Controller
     }
     public function WriteReview($string){
     	$reviewinfo=['ComicTitle' =>'','publishdate' => '','ComicNum' => '','sinopsis' => '','Editorial' => '','writer' => '','artist' => '','genre' => '',    		'pages' => '','text' => '','stars' => 0, 'ed' => '', 'genero' =>'', 'user_id' => 0];	    	
-		$reviews=[
-			'0' => ['review' => 'Review one','author' => 'Rey','stars' => '0','date' =>'05/09/18','following'=> 'true','genero' =>'Terror'],
-			'1' => ['review' => 'Review two','author' => 'Jerry','stars' => '1','date' =>'05/08/18','following'=> 'false','genero' =>'Adventure'],
-			'2' => ['review' => 'Review three','author' => 'Jerry','stars' => '2','date' =>'15/07/18','following'=> 'true','genero' =>'Superheros'],
-			'3' => ['review' => 'Review four','author' => 'Author four','stars' => '3','date' =>'02/09/18','following'=> 'false','genero' =>'Romance'],
-			'4' => ['review' => 'Review five','author' => 'Rey','stars' => '4','date' =>'04/08/18','following'=> 'true','genero' =>'Noir'],
-			'5' => ['review' => 'Review six','author' => 'Rey','stars' => '5','date' =>'05/09/18','following'=> 'false','genero' =>'Terror']
-		];
-		$comments=[
-			'0'=>['user'=>'Rey', 'comment'=>'Un comentario'],
-			'1'=>['user'=>'Jerry', 'comment'=>'Otro comentario']
-		];
 		$new=true;
 		$generos = CCgenre::all();
 
-		return view('Review', compact('reviewinfo','reviews','comments', 'new', 'generos'));
+		return view('Review', compact('reviewinfo', 'new', 'generos'));
     }
     public function ReadReview($id, Request $request){
         session_start();
         if(!isset($_SESSION['userID']))
             return redirect('Login');
 
-    	$ReviewExist = CCpost::all();
- 		foreach ($ReviewExist as $RE) {
- 			if($RE['id']==$id){				
-				$reviewinfo = $RE;
- 			}
- 		}
+    	$ReviewExist = CCpost::find($id);
+        if(is_null($ReviewExist))
+            return redirect('Login');
+
 		$reviews=[
 			'0' => ['review' => 'Review one','author' => 'Rey','stars' => '0','date' =>'05/09/18','following'=> 'true','genero' =>'Terror'],
 			'1' => ['review' => 'Review two','author' => 'Jerry','stars' => '1','date' =>'05/08/18','following'=> 'false','genero' =>'Adventure'],

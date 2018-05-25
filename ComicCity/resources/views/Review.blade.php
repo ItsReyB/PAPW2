@@ -120,7 +120,9 @@ Review
         @endif
         <input type="text" name="user" hidden="true" value={{$_SESSION['userID']}}>
         <button type="submit" class="btn btn-default greenbutton" id="submit">Submit</button>
-        <button class="btn btn-danger" id="delete">Delete</button>
+        @if(!$new)
+          <button class="btn btn-danger" id="delete">Delete</button>
+        @endif
       </div>
     </div>              
   </form>
@@ -234,68 +236,68 @@ Review
     <!--comentarios-->
     <div class="row otro">
       @if(!$new)
-      <div class="col-sm-10 ">        
-        @foreach($comments as $comment)
-          <div class="row comentario">
-            <div class="col-sm-12">
-              <img src="/Imagenes/User.jpg" class="img-thumbnail" alt="Cinque Terre" width="50" height="50">
-              <a href="/Profile/{{$comment['user_id']}}">{{$comment['name']}}</a>
-              <p>{{$comment['text']}}</p>
-            </div>
-          </div>
-        @endforeach
-        <div class="row coment">
-          <div class="col-sm-12 comenta">
-            <div class="row">
-              <div class="col-sm-1">
+        <div class="col-sm-10 ">        
+          @foreach($comments as $comment)
+            <div class="row comentario">
+              <div class="col-sm-12">
                 <img src="/Imagenes/User.jpg" class="img-thumbnail" alt="Cinque Terre" width="50" height="50">
+                <a href="/Profile/{{$comment['user_id']}}">{{$comment['name']}}</a>
+                <p>{{$comment['text']}}</p>
               </div>
-              <div class="col-sm-11">
-            <form class="form-horizontal" >
-              
-              <input type="text" class="form-control" id="comentario" placeholder="Leave a coment" name="comentario" required="required">              
-              <br>
-              <button type="button" class="btn btn-default" onclick="comment()" >Submit</button>
-            </form>
-            <script>  
-              function comment() {            
-                var data = "user={{$_SESSION['userID']}}&post={{$reviewinfo['id']}}&_token={{csrf_token()}}&comentario=";
-                data = data.concat( document.getElementById('comentario').value );
-                var xmlhttp = new XMLHttpRequest();
-                xmlhttp.onreadystatechange = function() {
-                  if (this.readyState == 4 && this.status == 200) {
-                    document.getElementById('comentario').value="";
-                    
-                  }
-                };
-                xmlhttp.open("POST", "/addComment", true);
-                xmlhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-                xmlhttp.send(data);
-              }
-             </script>
+            </div>
+          @endforeach
+          <div class="row coment">
+            <div class="col-sm-12 comenta">
+              <div class="row">
+                <div class="col-sm-1">
+                  <img src="/Imagenes/User.jpg" class="img-thumbnail" alt="Cinque Terre" width="50" height="50">
+                </div>
+                <div class="col-sm-11">
+              <form class="form-horizontal" >
+                
+                <input type="text" class="form-control" id="comentario" placeholder="Leave a coment" name="comentario" required="required">              
+                <br>
+                <button type="button" class="btn btn-default" onclick="comment()" >Submit</button>
+              </form>
+              <script>  
+                function comment() {            
+                  var data = "user={{$_SESSION['userID']}}&post={{$reviewinfo['id']}}&_token={{csrf_token()}}&comentario=";
+                  data = data.concat( document.getElementById('comentario').value );
+                  var xmlhttp = new XMLHttpRequest();
+                  xmlhttp.onreadystatechange = function() {
+                    if (this.readyState == 4 && this.status == 200) {
+                      document.getElementById('comentario').value="";
+                      
+                    }
+                  };
+                  xmlhttp.open("POST", "/addComment", true);
+                  xmlhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+                  xmlhttp.send(data);
+                }
+               </script>
+               </div>
              </div>
-           </div>
-          </div>
-        </div>      
-      </div>
-      <!--Relacionados-->
-      <div class="col-sm-2 otros">
-      <h3>Related</h3>
-      <hr>
-      @foreach($reviews as $review)
-        @if($review['genero']=='Terror')
-          <a href=""><img src="/Imagenes/Book.jpg" class="img-responsive" alt="Profile"></a>
-          <p>{{$review['review']}} </p>
-          <a href="">{{$review['author']}}</a> <br>
-            @for ($i=0; $i <$review['stars']; $i++)                      
-              <span class="glyphicon glyphicon-star"></span>
-            @endfor
-            @for ($i=0; $i <5-$review['stars']; $i++)                      
-              <span class="glyphicon glyphicon-star-empty"></span>
-            @endfor
-        @endif
-      @endforeach
-      </div>
+            </div>
+          </div>      
+        </div>
+        <!--Relacionados-->
+        <div class="col-sm-2 otros">
+        <h3>Related</h3>
+        <hr>
+        @foreach($reviews as $review)
+          @if($review['genero']=='Terror')
+            <a href=""><img src="/Imagenes/Book.jpg" class="img-responsive" alt="Profile"></a>
+            <p>{{$review['review']}} </p>
+            <a href="">{{$review['author']}}</a> <br>
+              @for ($i=0; $i <$review['stars']; $i++)                      
+                <span class="glyphicon glyphicon-star"></span>
+              @endfor
+              @for ($i=0; $i <5-$review['stars']; $i++)                      
+                <span class="glyphicon glyphicon-star-empty"></span>
+              @endfor
+          @endif
+        @endforeach
+        </div>
       @endif
     </div>
   </div> 
