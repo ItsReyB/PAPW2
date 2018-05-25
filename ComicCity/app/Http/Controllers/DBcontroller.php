@@ -154,6 +154,8 @@ class DBcontroller extends Controller
                 	$NewPost->CoverImage = base64_encode(file_get_contents( public_path().'/Imagenes/Book.jpg'   ) );			
                 }
     		}	
+            if(is_null($exists))
+                $NewPost = new CCpost;
 		}else{
 			$NewPost = CCpost::find($_POST['pid']);
 		}	
