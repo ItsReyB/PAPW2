@@ -24,6 +24,7 @@ class DBcontroller extends Controller
     	$NewUser->ProfileImage = base64_encode(file_get_contents( public_path().'/Imagenes/User.jpg'	) );
 
     	$NewUser->save();
+        session_start();
         $_SESSION['userID']=$NewUser['id'];
         $_SESSION['user']=$NewUser['name'];
         $_SESSION['isAdmin']=0;
@@ -59,6 +60,9 @@ class DBcontroller extends Controller
     	return view('Login');
     }
     public function getAProfile($id){
+        session_start();
+        if(!isset($_SESSION['userID']))
+            return redirect('Login');
 
 	    $AUser = CCuser::find($id); 	
         $reviews = CCpost::ofUser($AUser['id'])->get();
@@ -67,7 +71,7 @@ class DBcontroller extends Controller
  		'ProfileImage' => $AUser['ProfileImage']];
     	
     		
-        session_start();
+        
         /*
         $_SESSION['userID']=$AUser['id'];
         $_SESSION['user']=$AUser['name'];
@@ -109,6 +113,9 @@ class DBcontroller extends Controller
 		return view('Review', compact('reviewinfo','reviews','comments', 'new', 'generos'));
     }
     public function ReadReview($id, Request $request){
+        session_start();
+        if(!isset($_SESSION['userID']))
+            return redirect('Login');
 
     	$ReviewExist = CCpost::all();
  		foreach ($ReviewExist as $RE) {
