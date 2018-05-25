@@ -213,13 +213,15 @@ Review
 
         <label class="labelgreen">By:</label>
         <br>
-        <img src="/Imagenes/User.jpg" class="img-thumbnail" alt="Cinque Terre" width="100" height="100">
+          @if( isset($user['ProfileImage']) )
+            <img <?php echo 'src="data:image/jpeg;base64,'.($user['ProfileImage']).'"'; ?> class="img-thumbnail" alt="Cinque Terre" width="100" height="100">
+          @else
+            <img src="/Imagenes/User.jpg" class="img-thumbnail" alt="Cinque Terre" width="100" height="100">
+          @endif        
         <br>
-        <a href="">Username</a>
-        <hr>
-
+          <a href="Profile/{{$user['id']}}">{{$user['name']}}</a>
+        <br>
         <p>{{$reviewinfo['text']}}</p>
-
         <button type="button" class="btn btn-default greenbutton">Like This!</button>
         </div>
       </div>
@@ -240,7 +242,11 @@ Review
           @foreach($comments as $comment)
             <div class="row comentario">
               <div class="col-sm-12">
-                <img src="/Imagenes/User.jpg" class="img-thumbnail" alt="Cinque Terre" width="50" height="50">
+                @if( isset($comment['ProfileImage']) )
+                  <img <?php echo 'src="data:image/jpeg;base64,'.($comment['ProfileImage']).'"'; ?> class="img-thumbnail" alt="Cinque Terre" width="50" height="50">
+                @else
+                  <img src="/Imagenes/User.jpg" class="img-thumbnail" alt="Cinque Terre" width="50" height="50">
+                @endif                 
                 <a href="/Profile/{{$comment['user_id']}}">{{$comment['name']}}</a>
                 <p>{{$comment['text']}}</p>
               </div>
@@ -250,11 +256,15 @@ Review
             <div class="col-sm-12 comenta">
               <div class="row">
                 <div class="col-sm-1">
-                  <img src="/Imagenes/User.jpg" class="img-thumbnail" alt="Cinque Terre" width="50" height="50">
+                  @if( isset($_SESSION['ProfileImage']) )
+                    <img <?php echo 'src="data:image/jpeg;base64,'.($_SESSION['ProfileImage']).'"'; ?> class="img-thumbnail" alt="Cinque Terre" width="50" height="50">
+                  @else
+                    <img src="/Imagenes/User.jpg" class="img-thumbnail" alt="Cinque Terre" width="50" height="50">
+                  @endif
+                  
                 </div>
                 <div class="col-sm-11">
-              <form class="form-horizontal" >
-                
+              <form class="form-horizontal" >                
                 <input type="text" class="form-control" id="comentario" placeholder="Leave a coment" name="comentario" required="required">              
                 <br>
                 <button type="button" class="btn btn-default" onclick="comment()" >Submit</button>

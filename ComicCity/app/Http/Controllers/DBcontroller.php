@@ -27,6 +27,7 @@ class DBcontroller extends Controller
         session_start();
         $_SESSION['userID']=$NewUser['id'];
         $_SESSION['user']=$NewUser['name'];
+        $_SESSION['ProfileImage']=$AUser['ProfileImage'];
         $_SESSION['isAdmin']=0;
 
 		return redirect('Profile/'.$NewUser->id);	
@@ -45,6 +46,7 @@ class DBcontroller extends Controller
 	    	session_start();
     	    $_SESSION['userID']=$AUser['id'];
     	    $_SESSION['user']=$AUser['name'];
+            $_SESSION['ProfileImage']=$AUser['ProfileImage'];
     	    $_SESSION['isAdmin']=0;
 
             return redirect('Inicio');
@@ -119,7 +121,7 @@ class DBcontroller extends Controller
 			'5' => ['review' => 'Review six','author' => 'Rey','stars' => '5','date' =>'05/09/18','following'=> 'false','genero' =>'Terror']
 		];
 
-        $comments = CCcomment::withName()->get();
+        $comments = CCcomment::withName($id)->get();
 		$new=false;
 
 		$generos = CCgenre::all();
@@ -132,10 +134,10 @@ class DBcontroller extends Controller
 			if($e['id'] == $reviewinfo['Editorial'])
 			$reviewinfo->ed = $e['name'] ;
 		}
-
+        $user = CCuser::find($reviewinfo['user_id']);
        
 
-		return view('Review', compact('reviewinfo','reviews','comments', 'new', 'generos'));
+		return view('Review', compact('reviewinfo','reviews','comments', 'new', 'generos', 'user'));
     }
     public function Post(){  
        $exists = CCpost::all()->count();
@@ -302,6 +304,7 @@ class DBcontroller extends Controller
         $NewComment->text = $_POST['comentario'];
         $NewComment->user_id = $_POST['user'];
         $NewComment->post_id = $_POST['post'];
+        $NewComment->save();
     }
 
     //end functions
