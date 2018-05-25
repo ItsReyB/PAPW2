@@ -337,6 +337,11 @@ button.buttonpurple{
 	background-color: #cdb0d9;
 }
 
+.pagination>li.page-item .active{
+	background-color: #cdb0d9;
+}
+
+
 
 
 

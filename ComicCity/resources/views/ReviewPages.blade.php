@@ -1,3 +1,4 @@
+
 @foreach ($NewReviews as $newreview)
 
     <div class="col-sm-2 resultados">
@@ -20,4 +21,6 @@
 
 @endforeach
 
-{{ $NewReviews->links() }}
+
+
+

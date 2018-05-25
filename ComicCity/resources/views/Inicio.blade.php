@@ -11,9 +11,11 @@ Inicio
           <section class="NewReviews">
             @include('ReviewPages')
           </section>
-      </div>      
+      </div>  
+      {{ $NewReviews->links() }}    
     </div>    
   </div>
+
   <script type="text/javascript">
       $(window).on('hashchange', function() {
           if (window.location.hash) {
@@ -29,7 +31,7 @@ Inicio
           $('body').on('click', '.pagination a', function(e) {
               e.preventDefault();
 
-              $('#load a').css('color', '#dfecf6');
+              $('#load a').css('color', '#cdb0d9');
               $('#load').append('<img style="position: absolute; left: 0; top: 0; z-index: 100000;" src="/images/loading.gif" />');
 
               var url = $(this).attr('href');
