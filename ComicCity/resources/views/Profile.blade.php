@@ -24,6 +24,7 @@ Profile
 
             <!--en el perfil de alguien mas-->
             @if(!$actual)
+              <h2>Follow</h2>
               <button id="btnFollow" type="button" class="btn btn-default" onclick="follow()" id='flw' content="{{ csrf_token() }}">                
                   <span class='glyphicon glyphicon-ok-sign'  ></span>                   
               </button>
@@ -34,7 +35,7 @@ Profile
                 $(document).ready(function() {                 
                   document.getElementById("btnFollow").style.color = "green";
                   document.getElementById("btnUnFollow").style.color = "red";
-                  if({{$Isfollowing}}){
+                  if(<?php echo $Isfollowing; ?>){
                     document.getElementById("btnFollow").style.visibility = "hidden";
                     document.getElementById("btnUnFollow").style.visibility = "visible";
                   }else{

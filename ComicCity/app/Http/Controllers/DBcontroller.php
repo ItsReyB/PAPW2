@@ -68,9 +68,7 @@ class DBcontroller extends Controller
         $reviews = CCpost::ofUser($AUser['id'])->get();
 
  		$user=['username' => $AUser['name'], 'joindate' => $AUser['created_at'], 'numberofreviews' =>$reviews->count(), 'isadmin' => 'false', 'id' => $AUser['id'],
- 		'ProfileImage' => $AUser['ProfileImage']];
-    	
-    		
+ 		'ProfileImage' => $AUser['ProfileImage']];   
         
         /*
         $_SESSION['userID']=$AUser['id'];
