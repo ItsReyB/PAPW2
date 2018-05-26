@@ -15,7 +15,7 @@
           header("location: /Login");
           exit();
     }
-    
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -45,21 +45,23 @@
 				<div class="collapse navbar-collapse" id="myNavbar">
 					<ul class="nav navbar-nav">
 						<li class="active"><a href="/Inicio">Inicio</a></li>
-						<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Categorias <span class="caret"></span></a>
-						<ul class="dropdown-menu">
-							<li><a href="/Search/Adventure" content="{{ csrf_token() }}">Adventure</a></li>
-							
-						</ul>
+						<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Categorias 
+							<span class="caret"></span></a>
+							<ul class="dropdown-menu">												
+								@foreach ($generos as $gen)					
+									<li><a href="/Search/"{{$gen['genre']}} content="{{ csrf_token() }}">{{$gen['genre']}}</a></li>
+								@endforeach
+							</ul>
 						</li>
-							@if($_SESSION['isAdmin']=='false')
-								@if(isset($new))
-									@if(!$new)
-										<li><a href="/Review/New">New</a></li>
-									@endif
-								@else
-									<li><a href="Review/New">New</a></li>
+						@if($_SESSION['isAdmin']=='false')
+							@if(isset($new))
+								@if(!$new)
+									<li><a href="/Review/New">New</a></li>
 								@endif
-							@endif		    
+							@else
+								<li><a href="Review/New">New</a></li>
+							@endif
+						@endif		    
 					</ul>
 					<form class="navbar-form navbar-left" action="/Search">
 						<div class="form-group">
@@ -75,5 +77,5 @@
 			</div>
 		</nav>
 	@yield('content')
-	</body>
+	</body>	
 </html>

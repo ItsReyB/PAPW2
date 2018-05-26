@@ -95,11 +95,6 @@ class DBcontroller extends Controller
  		$user=['username' => $AUser['name'], 'joindate' => $AUser['created_at'], 'numberofreviews' =>$reviews->count(), 'isadmin' => 'false', 'id' => $AUser['id'],  'NumFollow' => $AUser['NumFollow'],
  		'ProfileImage' => $AUser['ProfileImage']];   
         
-        /*
-        $_SESSION['userID']=$AUser['id'];
-        $_SESSION['user']=$AUser['name'];
-        $_SESSION['isAdmin']=0;
-        */
         $actual = ($_SESSION['userID']==$AUser['id']);
 
         $Isfollowing = false;
@@ -114,7 +109,8 @@ class DBcontroller extends Controller
         $ActualFollowing = CCfollowing::find($existFR);
         $Isfollowing = $ActualFollowing['SN'];
 
-    	return view('Profile', compact('reviews', 'user', 'actual', 'Isfollowing', 'existFR'));
+        $generos = CCgenre::all();
+    	return view('Profile', compact('reviews', 'user', 'actual', 'Isfollowing', 'existFR', 'generos'));
     }
     public function WriteReview($string){
     	$reviewinfo=['ComicTitle' =>'','publishdate' => '','ComicNum' => '','sinopsis' => '','Editorial' => '','writer' => '','artist' => '','genre' => '',    		'pages' => '','text' => '','stars' => 0, 'ed' => '', 'genero' =>'', 'user_id' => 0];	    	
@@ -256,7 +252,8 @@ class DBcontroller extends Controller
             $user = CCuser::find($r['user_id']);
             $r['userName'] = $user['name'];
         }
-        return view('Search', compact('reviews'));
+        $generos = CCgenre::all();
+        return view('Search', compact('reviews', 'generos'));
     }
     public function Main(){
         $NewReviews = CCpost::News()->get();
@@ -319,7 +316,8 @@ class DBcontroller extends Controller
         if ($request->ajax()) {
             return view('Inicio', ['NewReviews' => $NewReviews]) ->render();
         }
-        return view('Inicio', compact('NewReviews', 'reviews','TopReviews'));
+        $generos = CCgenre::all();
+        return view('Inicio', compact('NewReviews', 'reviews','TopReviews', 'generos'));
     }
     public function SearchCat($categoria){
         $reviews = CCpost::Categoria($categoria)->get(); 
