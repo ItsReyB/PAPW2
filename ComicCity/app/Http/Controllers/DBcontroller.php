@@ -14,7 +14,15 @@ use Illuminate\Http\Request;
 class DBcontroller extends Controller
 {
     public function Signing(){
-    	  	
+    	$UserAlrdyExist = CCuser::all();
+        $SUuserAE = false;
+        foreach ($UserAlrdyExist as $UAE) {
+            if($UAE['email']==$_POST['email']){
+                $SUuserAE = true;
+                return view('Login', compact('SUuserAE'));
+            }
+        }
+
     	$NewUser = new CCuser;
     	$NewUser->name= $_POST['user'];
     	$NewUser->email= $_POST['email'];
@@ -52,7 +60,7 @@ class DBcontroller extends Controller
                 $LOGG = true;
             }
         }else{$password = true;}
-        
+
  		if($LOGG){
 	    	session_start();
     	    $_SESSION['userID']=$AUser['id'];

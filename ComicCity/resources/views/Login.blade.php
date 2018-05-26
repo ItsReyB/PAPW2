@@ -26,8 +26,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">   	
     <link href="/bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-	<script src="/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
     <title>Comic City</title>
     <link href="{!! asset('css/Style.css')!!}" rel="stylesheet" type="text/css">
   </head>
@@ -91,6 +89,15 @@
 					    </div>
 					   
 				    	<button type="submit" class="btn btn-default a ">Join!</button>
+
+				    	@if(isset($SUuserAE))
+				    		@if($SUuserAE)
+						    	<div class="alert alert-danger alert-dismissible">
+		    					<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+		    					<strong>Error!</strong>Email already has account
+		  						</div>
+							@endif
+				    	@endif
 				  </form>
 			</div>
 
@@ -101,7 +108,7 @@
 
 
 
-      <script src="bootstrap-3.3.7-dist/js/jquery.min.js"></script>
-      <script src="bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+      <script src="/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
   </body>
  </html>
