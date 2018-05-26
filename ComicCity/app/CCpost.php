@@ -11,10 +11,20 @@ class CCpost extends Model
         parent::boot();
 
         static::addGlobalScope('active', function ($query) {
-            $query->where('Active', true);
+            $query->where('c_cposts.Active', true);
         });
     }
-
+    public function scopewithUser($query){
+        return $query->join('c_cusers','c_cposts.user_id', 'c_cusers.id')
+            ->select(   'c_cposts.id', 
+                        'ComicTitle', 
+                        'ComicNum',
+                        'c_cusers.id as user_id',
+                        'c_cusers.name as user_name',
+                        'genre_id',
+                        'CoverImage'
+                    );
+    }
  	public function scopeTitle($query, $StrSrch){
 
         return $query->where('ComicTitle', 'LIKE',$StrSrch);

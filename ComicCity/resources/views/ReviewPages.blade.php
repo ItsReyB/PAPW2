@@ -2,7 +2,7 @@
 @foreach ($NewReviews as $newreview)
 
     <div class="col-sm-2 resultados">
-		<a href="Review/{{$newreview['id']}}" >
+		<a href="/Review/{{$newreview['id']}}" >
       	@if( isset($newreview['CoverImage']) )
             <img <?php echo 'src="data:image/jpeg;base64,'.($newreview['CoverImage']).'"'; ?> class="img-responsive" alt="Profile">
   		@else
@@ -10,7 +10,7 @@
       	@endif   
         	</a>
         	<p>{{$newreview['ComicTitle']}} #{{$newreview['ComicNum']}}</p>
-            <a href="Profile/{{$newreview['user_id']}}">{{$newreview['userName']}}</a> <br>
+            <a href="/Profile/{{$newreview['user_id']}}">{{$newreview['userName']}}</a> <br>
         @for ($i=0; $i < $newreview['stars']; $i++)                      
           	<span class="glyphicon glyphicon-star"></span>
         @endfor

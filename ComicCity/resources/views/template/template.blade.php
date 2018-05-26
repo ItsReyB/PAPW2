@@ -59,7 +59,7 @@
 									<li><a href="/Review/New">New</a></li>
 								@endif
 							@else
-								<li><a href="Review/New">New</a></li>
+								<li><a href="/Review/New">New</a></li>
 							@endif
 						@endif		    
 					</ul>

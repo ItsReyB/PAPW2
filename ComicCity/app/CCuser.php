@@ -11,7 +11,7 @@ class CCuser extends Model
         parent::boot();
 
         static::addGlobalScope('active', function ($query) {
-            $query->where('active', true);
+            $query->where('c_cusers.active', true);
         });
     }
 }

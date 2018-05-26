@@ -112,8 +112,8 @@ Review
         <br>
         <label for="stars" class="labelgreen">Estrellas:</label>
         <select class="form-control" name= "stars" id="stars" required="required">
-          <option <?php if($reviewinfo['stars'] == 0) {echo 'selected';} ?> ><p>0 Stars</p></option>
-          <option <?php if($reviewinfo['stars'] == 1) {echo 'selected';} ?>><p>1 Star</p></option>
+          <option <?php if($reviewinfo['stars'] == 0) {echo 'selected';} ?>><p>0 Stars</p></option>
+          <option <?php if($reviewinfo['stars'] == 1) {echo 'selected';} ?>><p>1 Stars</p></option>
           <option <?php if($reviewinfo['stars'] == 2) {echo 'selected';} ?>><p>2 Stars</p></option>
           <option <?php if($reviewinfo['stars'] == 3) {echo 'selected';} ?>><p>3 Stars</p></option>
           <option <?php if($reviewinfo['stars'] == 4) {echo 'selected';} ?>><p>4 Stars</p></option>
@@ -291,16 +291,24 @@ Review
         <h3>Related</h3>
         <hr>
         @foreach($reviews as $review)
-          @if($review['genero']=='Terror')
-            <a href=""><img src="/Imagenes/Book.jpg" class="img-responsive" alt="Profile"></a>
-            <p>{{$review['review']}} </p>
-            <a href="">{{$review['author']}}</a> <br>
-              @for ($i=0; $i <$review['stars']; $i++)                      
-                <span class="glyphicon glyphicon-star"></span>
-              @endfor
-              @for ($i=0; $i <5-$review['stars']; $i++)                      
-                <span class="glyphicon glyphicon-star-empty"></span>
-              @endfor
+          @if($review['genre_id'] == $reviewinfo['genero_id'] && $review['id'] != $reviewinfo['id'])
+
+            @if( isset($review['CoverImage']) )
+              <a href="/Review/{{$review['id']}}">
+                <img <?php echo 'src="data:image/jpeg;base64,'.($review['CoverImage']).'"'; ?> class="img-responsive" alt="Profile">
+              </a>
+
+            @else
+              <a href="/Review/{{$review['id']}}"><img src="/Imagenes/Book.jpg" class="img-responsive" alt="Profile"></a>
+            @endif
+            <p>{{$review['ComicTitle']}} #{{$review['ComicNum']}}</p>
+            <a href="/Profile/{{$review['user_id']}}">{{$review['user_name']}}</a> <br>
+            @for ($i=0; $i <$review['stars']; $i++)                      
+              <span class="glyphicon glyphicon-star"></span>
+            @endfor
+            @for ($i=0; $i <5-$review['stars']; $i++)                      
+              <span class="glyphicon glyphicon-star-empty"></span>
+            @endfor
           @endif
         @endforeach
         </div>

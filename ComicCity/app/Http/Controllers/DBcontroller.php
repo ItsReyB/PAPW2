@@ -130,22 +130,17 @@ class DBcontroller extends Controller
         if(is_null($reviewinfo))
             return redirect('Login');
 
-		$reviews=[
-			'0' => ['review' => 'Review one','author' => 'Rey','stars' => '0','date' =>'05/09/18','following'=> 'true','genero' =>'Terror'],
-			'1' => ['review' => 'Review two','author' => 'Jerry','stars' => '1','date' =>'05/08/18','following'=> 'false','genero' =>'Adventure'],
-			'2' => ['review' => 'Review three','author' => 'Jerry','stars' => '2','date' =>'15/07/18','following'=> 'true','genero' =>'Superheros'],
-			'3' => ['review' => 'Review four','author' => 'Author four','stars' => '3','date' =>'02/09/18','following'=> 'false','genero' =>'Romance'],
-			'4' => ['review' => 'Review five','author' => 'Rey','stars' => '4','date' =>'04/08/18','following'=> 'true','genero' =>'Noir'],
-			'5' => ['review' => 'Review six','author' => 'Rey','stars' => '5','date' =>'05/09/18','following'=> 'false','genero' =>'Terror']
-		];
+		$reviews = CCpost::withUser()->inRandomOrder()->take(3)->get();
 
         $comments = CCcomment::withName($id)->get();
 		$new=false;
 
 		$generos = CCgenre::all();
 		foreach($generos as $g){
-			if($g['id'] == $reviewinfo['genre_id'])
-			$reviewinfo->genero = $g['genre'] ;
+			if($g['id'] == $reviewinfo['genre_id']){
+    			$reviewinfo->genero = $g['genre'] ;
+                $reviewinfo->genero_id = $g['id'] ;
+            }
 		}
 		$edit = CCeditorial::all();
 		foreach($edit as $e){
