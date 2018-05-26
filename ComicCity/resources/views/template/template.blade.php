@@ -15,6 +15,7 @@
           header("location: /Login");
           exit();
     }
+    
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -46,7 +47,7 @@
 						<li class="active"><a href="/Inicio">Inicio</a></li>
 						<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Categorias <span class="caret"></span></a>
 						<ul class="dropdown-menu">
-							<li><a href="/Search/Adventure" content="{{ csrf_token() }}">Action</a></li>
+							<li><a href="/Search/Adventure" content="{{ csrf_token() }}">Adventure</a></li>
 							
 						</ul>
 						</li>

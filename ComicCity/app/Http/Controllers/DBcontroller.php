@@ -10,6 +10,7 @@ use App\CCfollowing;
 use App\CCcomment;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class DBcontroller extends Controller
 {
@@ -91,7 +92,7 @@ class DBcontroller extends Controller
 
         $reviews = CCpost::ofUser($AUser['id'])->get();
 
- 		$user=['username' => $AUser['name'], 'joindate' => $AUser['created_at'], 'numberofreviews' =>$reviews->count(), 'isadmin' => 'false', 'id' => $AUser['id'],
+ 		$user=['username' => $AUser['name'], 'joindate' => $AUser['created_at'], 'numberofreviews' =>$reviews->count(), 'isadmin' => 'false', 'id' => $AUser['id'],  'NumFollow' => $AUser['NumFollow'],
  		'ProfileImage' => $AUser['ProfileImage']];   
         
         /*
@@ -120,7 +121,9 @@ class DBcontroller extends Controller
 		$new=true;
 		$generos = CCgenre::all();
 
-		return view('Review', compact('reviewinfo', 'new', 'generos'));
+        $user['id'] = 0;
+        $user['name'] = "";
+		return view('Review', compact('reviewinfo', 'new', 'generos', 'user'));
     }
     public function ReadReview($id, Request $request){
         session_start();
@@ -279,19 +282,24 @@ class DBcontroller extends Controller
         if($_POST['exist'] > 0){
             $Follow = CCfollowing::find($_POST['exist']);
             $Follow['SN'] = !($_POST['SN']);
-            $Follow->save();        
-           
+            $Follow->save(); 
+            if($Follow['SN'])
+                DB::table('c_cusers')->where('id', $Follow['followed_id'])->increment('NumFollow');
+            else
+                DB::table('c_cusers')->where('id', $Follow['followed_id'])->decrement('NumFollow');
         }else{
             $Follow = new CCfollowing;
             $Follow['SN'] = true;
             $Follow['follower_id'] = $_POST['er'];
             $Follow['followed_id'] = $_POST['ed'];
             $Follow->save();
+            DB::table('c_cusers')->where('id', $Follow['followed_id'])->increment('NumFollow');
         }
+        $nuF = CCuser::find($Follow['followed_id']);
+        return $nuF['NumFollow'];
     }
 
-    public function index(Request $request)
-    {
+    public function index(Request $request){
         $NewReviews = CCpost::News()->paginate(6);
         $reviews=[
                 '0' => ['review' => 'Review one','author' => 'Rey','stars' => '0','date' =>'05/09/18','following'=> 'true','genero' =>'Terror'],
