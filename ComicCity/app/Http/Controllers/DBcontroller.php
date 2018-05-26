@@ -92,22 +92,25 @@ class DBcontroller extends Controller
 
         $reviews = CCpost::ofUser($AUser['id'])->get();
 
- 		$user=['username' => $AUser['name'], 'joindate' => $AUser['created_at'], 'numberofreviews' =>$reviews->count(), 'isadmin' => 'false', 'id' => $AUser['id'],  'NumFollow' => $AUser['NumFollow'],
- 		'ProfileImage' => $AUser['ProfileImage']];   
+ 		$user=['username' => $AUser['name'], 'joindate' => $AUser['created_at'], 'numberofreviews' =>$reviews->count(),
+                'id' => $AUser['id'],  'NumFollow' => $AUser['NumFollow'],	'ProfileImage' => $AUser['ProfileImage'] ];   
         
         $actual = ($_SESSION['userID']==$AUser['id']);
 
-        $Isfollowing = false;
+        $Isfollowing = 0;
         $existFR = 0;
         
         $followings = CCfollowing::all();
         foreach ($followings as $fs) {
             if($fs['follower_id']== $_SESSION['userID']    && $fs['followed_id'] == $AUser['id']){                
-                $existFR = $fs['id'];
+                $existFR = 1;
+                break;
             }
         }
-        $ActualFollowing = CCfollowing::find($existFR);
-        $Isfollowing = $ActualFollowing['SN'];
+        if($existFR){
+            $ActualFollowing = CCfollowing::Search($_SESSION['userID'], $AUser['id'])->first();
+            $Isfollowing = $ActualFollowing['SN'];
+        }
 
         $generos = CCgenre::all();
     	return view('Profile', compact('reviews', 'user', 'actual', 'Isfollowing', 'existFR', 'generos'));
@@ -131,7 +134,6 @@ class DBcontroller extends Controller
             return redirect('Login');
 
 		$reviews = CCpost::withUser()->inRandomOrder()->take(3)->get();
-
         $comments = CCcomment::withName($id)->get();
 		$new=false;
 
@@ -271,8 +273,8 @@ class DBcontroller extends Controller
     }
 
     public function Followuser(){
-        if($_POST['exist'] > 0){
-            $Follow = CCfollowing::find($_POST['exist']);
+        if($_POST['exist']){
+            $Follow = CCfollowing::Search($_POST['er'], $_POST['ed'])->first();
             $Follow['SN'] = !($_POST['SN']);
             $Follow->save(); 
             if($Follow['SN'])
@@ -294,12 +296,12 @@ class DBcontroller extends Controller
     public function index(Request $request){
         $NewReviews = CCpost::News()->paginate(6);
         $reviews=[
-                '0' => ['review' => 'Review one','author' => 'Rey','stars' => '0','date' =>'05/09/18','following'=> 'true','genero' =>'Terror'],
-                '1' => ['review' => 'Review two','author' => 'Jerry','stars' => '1','date' =>'05/08/18','following'=> 'false','genero' =>'Adventure'],
-                '2' => ['review' => 'Review three','author' => 'Jerry','stars' => '2','date' =>'15/07/18','following'=> 'true','genero' =>'Superheros'],
-                '3' => ['review' => 'Review four','author' => 'Author four','stars' => '3','date' =>'02/09/18','following'=> 'false','genero' =>'Romance'],
-                '4' => ['review' => 'Review five','author' => 'Rey','stars' => '4','date' =>'04/08/18','following'=> 'true','genero' =>'Noir'],
-                '5' => ['review' => 'Review six','author' => 'Rey','stars' => '5','date' =>'05/09/18','following'=> 'false','genero' =>'Terror']
+                '0' => ['review' => 'Review one','author' => 'Rey','stars' => 0,'date' =>'05/09/18','following'=> 'true','genero' =>'Terror'],
+                '1' => ['review' => 'Review two','author' => 'Jerry','stars' => 1,'date' =>'05/08/18','following'=> 'false','genero' =>'Adventure'],
+                '2' => ['review' => 'Review three','author' => 'Jerry','stars' => 2,'date' =>'15/07/18','following'=> 'true','genero' =>'Superheros'],
+                '3' => ['review' => 'Review four','author' => 'Author four','stars' => 3,'date' =>'02/09/18','following'=> 'false','genero' =>'Romance'],
+                '4' => ['review' => 'Review five','author' => 'Rey','stars' => 4,'date' =>'04/08/18','following'=> 'true','genero' =>'Noir'],
+                '5' => ['review' => 'Review six','author' => 'Rey','stars' => 5,'date' =>'05/09/18','following'=> 'false','genero' =>'Terror']
             ];
             
         foreach ($NewReviews as $r) {

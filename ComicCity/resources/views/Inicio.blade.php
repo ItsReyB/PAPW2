@@ -90,112 +90,47 @@ Inicio
    
     <div class="panel-body inicio">
     	<div class="row">
-    			@foreach($reviews as $followreview)
+  			@foreach($reviews as $followreview)
           @if($followreview['following']=='true')
-          <div class="col-sm-2 resultados">
-            <a href=""><img src="Imagenes/Book.jpg" class="img-responsive" alt="Profile"></a>
-                <p>{{$followreview['review']}} </p>
-                <a href="">{{$followreview['author']}}</a> <br>
-                
-                  @if($followreview['stars']==0)
-                  @section('0estrella')
-                  @show
-                  @endif
-                  @if($followreview['stars']==1)
-                  <span class="glyphicon glyphicon-star"></span>
-                  <span class="glyphicon glyphicon-star-empty"></span>
-                  <span class="glyphicon glyphicon-star-empty"></span>
-                  <span class="glyphicon glyphicon-star-empty"></span>
-                  <span class="glyphicon glyphicon-star-empty"></span>
-                  @endif
-                  @if($followreview['stars']==2)
-                  <span class="glyphicon glyphicon-star"></span>
-                  <span class="glyphicon glyphicon-star"></span>
-                  <span class="glyphicon glyphicon-star-empty"></span>
-                  <span class="glyphicon glyphicon-star-empty"></span>
-                  <span class="glyphicon glyphicon-star-empty"></span>
-                  @endif
-                  @if($followreview['stars']==3)
-                  <span class="glyphicon glyphicon-star"></span>
-                  <span class="glyphicon glyphicon-star"></span>
-                  <span class="glyphicon glyphicon-star"></span>
-                  <span class="glyphicon glyphicon-star-empty"></span>
-                  <span class="glyphicon glyphicon-star-empty"></span>
-                  @endif
-                  @if($followreview['stars']==4)
-                  <span class="glyphicon glyphicon-star"></span>
-                  <span class="glyphicon glyphicon-star"></span>
-                  <span class="glyphicon glyphicon-star"></span>
-                  <span class="glyphicon glyphicon-star"></span>
-                  <span class="glyphicon glyphicon-star-empty"></span>
-                  @endif
-                  @if($followreview['stars']==5)
-                  @section('5estrellas')
-                  @show
-                  @endif
-
-              </div>
-              @endif
-            @endforeach 
-          </div>
+            <div class="col-sm-2 resultados">
+              <a href=""><img src="Imagenes/Book.jpg" class="img-responsive" alt="Profile"></a>
+              <p>{{$followreview['review']}} </p>
+              <a href="">{{$followreview['author']}}</a> <br>
+              @for ($i=0; $i < $followreview['stars']; $i++)                      
+                <span class="glyphicon glyphicon-star"></span>
+              @endfor
+              @for ($i=0; $i <5-$followreview['stars']; $i++)                      
+                <span class="glyphicon glyphicon-star-empty"></span>
+              @endfor  
+            </div>
+          @endif
+        @endforeach 
+      </div>
     </div>
   </div>
 </div>
 
 <div class="container-fluid dos">
   <h2>Reseñas de Comics Relacionados</h2>
-  <div class="panel panel-default panel-transparent">
-    
+  <div class="panel panel-default panel-transparent">    
     <div class="panel-body inicio2">
     	<div class="row">
-    			@foreach($reviews as $relatedreview)
+        @foreach($reviews as $relatedreview)
           @if($relatedreview['genero']=='Terror')
-          <div class="col-sm-2 resultados">
-            <a href=""><img src="Imagenes/Book.jpg" class="img-responsive" alt="Profile"></a>
-                <p>{{$relatedreview['review']}} </p>
-                <a href="">{{$relatedreview['author']}}</a> <br>
-                
-                  @if($relatedreview['stars']==0)
-                  @section('0estrella')
-                  @show
-                  @endif
-                  @if($relatedreview['stars']==1)
-                  <span class="glyphicon glyphicon-star"></span>
-                  <span class="glyphicon glyphicon-star-empty"></span>
-                  <span class="glyphicon glyphicon-star-empty"></span>
-                  <span class="glyphicon glyphicon-star-empty"></span>
-                  <span class="glyphicon glyphicon-star-empty"></span>
-                  @endif
-                  @if($relatedreview['stars']==2)
-                  <span class="glyphicon glyphicon-star"></span>
-                  <span class="glyphicon glyphicon-star"></span>
-                  <span class="glyphicon glyphicon-star-empty"></span>
-                  <span class="glyphicon glyphicon-star-empty"></span>
-                  <span class="glyphicon glyphicon-star-empty"></span>
-                  @endif
-                  @if($relatedreview['stars']==3)
-                  <span class="glyphicon glyphicon-star"></span>
-                  <span class="glyphicon glyphicon-star"></span>
-                  <span class="glyphicon glyphicon-star"></span>
-                  <span class="glyphicon glyphicon-star-empty"></span>
-                  <span class="glyphicon glyphicon-star-empty"></span>
-                  @endif
-                  @if($relatedreview['stars']==4)
-                  <span class="glyphicon glyphicon-star"></span>
-                  <span class="glyphicon glyphicon-star"></span>
-                  <span class="glyphicon glyphicon-star"></span>
-                  <span class="glyphicon glyphicon-star"></span>
-                  <span class="glyphicon glyphicon-star-empty"></span>
-                  @endif
-                  @if($relatedreview['stars']==5)
-                  @section('5estrellas')
-                  @show
-                  @endif
-
-              </div>
-              @endif
-            @endforeach 
-          </div>
+            <div class="col-sm-2 resultados">
+              <a href=""><img src="Imagenes/Book.jpg" class="img-responsive" alt="Profile"></a>
+              <p>{{$relatedreview['review']}} </p>
+              <a href="">{{$relatedreview['author']}}</a> <br>                
+              @for ($i=0; $i < $relatedreview['stars']; $i++)                      
+                <span class="glyphicon glyphicon-star"></span>
+              @endfor
+              @for ($i=0; $i <5-$relatedreview['stars']; $i++)                      
+                <span class="glyphicon glyphicon-star-empty"></span>
+              @endfor 
+            </div>
+          @endif
+        @endforeach 
+      </div>
     </div>
   </div>
 </div>

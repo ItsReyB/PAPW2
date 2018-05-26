@@ -30,11 +30,12 @@ Profile
           <button id="btnUnFollow" type="button" class="btn btn-default" onclick="unfollow()" id='flw' content="{{ csrf_token() }}">                
               <span class='glyphicon glyphicon-remove-sign'  ></span>                   
           </button>
+          <input type="hidden" id="extsF" value={{$existFR}} >
           <script>                
             $(document).ready(function() {                 
               document.getElementById("btnFollow").style.color = "green";
               document.getElementById("btnUnFollow").style.color = "red";
-              if(<?php echo $Isfollowing; ?>){
+              if({{$Isfollowing}}){
                 document.getElementById("btnFollow").style.visibility = "hidden";
                 document.getElementById("btnUnFollow").style.visibility = "visible";
               }else{
@@ -44,13 +45,14 @@ Profile
 
             });   
             function follow() {                 
-              var data = "er={{$_SESSION['userID']}}&ed={{$user['id']}}&_token={{csrf_token()}}&exist={{$existFR}}&SN=0";                  
+              var data = "er={{$_SESSION['userID']}}&ed={{$user['id']}}&_token={{csrf_token()}}&exist="+document.getElementById("extsF").value+"&SN=0";                  
               var xmlhttp = new XMLHttpRequest();
               xmlhttp.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {
                   document.getElementById("btnFollow").style.visibility = "hidden";
                   document.getElementById("btnUnFollow").style.visibility = "visible";
                   document.getElementById("Fllws").innerHTML = this.responseText;
+                  document.getElementById("extsF").value =1;
                 }
               };
               xmlhttp.open("POST", "/Follow", true);
@@ -58,13 +60,14 @@ Profile
               xmlhttp.send(data);
             }
             function unfollow() {                 
-              var data = "er={{$_SESSION['userID']}}&ed={{$user['id']}}&_token={{csrf_token()}}&exist={{$existFR}}&SN=1";                  
+              var data = "er={{$_SESSION['userID']}}&ed={{$user['id']}}&_token={{csrf_token()}}&exist="+document.getElementById("extsF").value+"&SN=1";                  
               var xmlhttp = new XMLHttpRequest();
               xmlhttp.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {
                   document.getElementById("btnFollow").style.visibility = "visible";
                   document.getElementById("btnUnFollow").style.visibility = "hidden";
                   document.getElementById("Fllws").innerHTML = this.responseText;
+                  document.getElementById("extsF").value =1;
                 }
               };
               xmlhttp.open("POST", "/Follow", true);
