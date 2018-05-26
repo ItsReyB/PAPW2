@@ -59,57 +59,57 @@ Inicio
   <h2>Top 5 Calificaciones</h2>
   <div class="panel panel-default panel-transparent">    
     <div class="panel-body inicio2">
-    	<div class="row">
-  			@foreach($TopReviews as $topreview)          
-          <div class="col-sm-2 resultados">
-            <a href="Review/{{$topreview['id']}}" >
-              @if( isset($topreview['CoverImage']) )
-                <img <?php echo 'src="data:image/jpeg;base64,'.($topreview['CoverImage']).'"'; ?> class="img-responsive" alt="Profile">
-              @else
-                <img src="/Imagenes/Book.jpg" class="img-responsive" alt="Profile">
-              @endif   
-            </a>
-            <p>{{$topreview['ComicTitle']}} #{{$topreview['ComicNum']}}</p>
-            <a href="Profile/{{$topreview['user_id']}}">{{$topreview['userName']}}</a> <br>
-            @for ($i=0; $i < $topreview['stars']; $i++)                      
-              <span class="glyphicon glyphicon-star"></span>
-            @endfor
-            @for ($i=0; $i <5-$topreview['stars']; $i++)                      
-              <span class="glyphicon glyphicon-star-empty"></span>
-            @endfor
-          </div>             
-        @endforeach 
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="container-fluid">
-  <h2>Reviews de Personas que sigues</h2>
-  <div class="panel panel-default panel-transparent">
-   
-    <div class="panel-body inicio">
-    	<div class="row">
-  			@foreach($reviews as $followreview)
-          @if($followreview['following']=='true')
+    	<div class="row">        
+    			@foreach($TopReviews as $topreview)          
             <div class="col-sm-2 resultados">
-              <a href=""><img src="Imagenes/Book.jpg" class="img-responsive" alt="Profile"></a>
-              <p>{{$followreview['review']}} </p>
-              <a href="">{{$followreview['author']}}</a> <br>
-              @for ($i=0; $i < $followreview['stars']; $i++)                      
+              <a href="Review/{{$topreview['id']}}" >
+                @if( isset($topreview['CoverImage']) )
+                  <img <?php echo 'src="data:image/jpeg;base64,'.($topreview['CoverImage']).'"'; ?> class="img-responsive" alt="Profile">
+                @else
+                  <img src="/Imagenes/Book.jpg" class="img-responsive" alt="Profile">
+                @endif   
+              </a>
+              <p>{{$topreview['ComicTitle']}} #{{$topreview['ComicNum']}}</p>
+              <a href="Profile/{{$topreview['user_id']}}">{{$topreview['userName']}}</a> <br>
+              @for ($i=0; $i < $topreview['stars']; $i++)                      
                 <span class="glyphicon glyphicon-star"></span>
               @endfor
-              @for ($i=0; $i <5-$followreview['stars']; $i++)                      
+              @for ($i=0; $i <5-$topreview['stars']; $i++)                      
                 <span class="glyphicon glyphicon-star-empty"></span>
-              @endfor  
-            </div>
-          @endif
-        @endforeach 
+              @endfor
+            </div>             
+          @endforeach         
       </div>
     </div>
   </div>
 </div>
 
+@if($follows->count() )
+  <div class="container-fluid">
+    <h2>Reviews de Personas que sigues</h2>
+    <div class="panel panel-default panel-transparent">   
+      <div class="panel-body inicio">
+      	<div class="row">          
+      			@foreach($reviews as $followreview)
+              @if($followreview['following']=='true')
+                <div class="col-sm-2 resultados">
+                  <a href=""><img src="Imagenes/Book.jpg" class="img-responsive" alt="Profile"></a>
+                  <p>{{$followreview['review']}} </p>
+                  <a href="">{{$followreview['author']}}</a> <br>
+                  @for ($i=0; $i < $followreview['stars']; $i++)                      
+                    <span class="glyphicon glyphicon-star"></span>
+                  @endfor
+                  @for ($i=0; $i <5-$followreview['stars']; $i++)                      
+                    <span class="glyphicon glyphicon-star-empty"></span>
+                  @endfor  
+                </div>
+              @endif
+            @endforeach 
+        </div>
+      </div>
+    </div>
+  </div>
+@endif
 <div class="container-fluid dos">
   <h2>Reseñas de Comics Relacionados</h2>
   <div class="panel panel-default panel-transparent">    

@@ -78,7 +78,10 @@ class DBcontroller extends Controller
     public function LoggingOut(){
 	    session_start();
 	    session_regenerate_id();
-	    session_destroy();
+        unset($_SESSION['userID']);
+        unset($_SESSION['user']);
+        unset($_SESSION['ProfileImage']);
+        unset($_SESSION['isAdmin']);
     	return view('Login');
     }
     public function getAProfile($id){
@@ -294,6 +297,10 @@ class DBcontroller extends Controller
     }
 
     public function index(Request $request){
+        session_start();
+        if(!isset($_SESSION['userID']))
+            return redirect('Login');
+        
         $NewReviews = CCpost::News()->paginate(6);
         $reviews=[
                 '0' => ['review' => 'Review one','author' => 'Rey','stars' => 0,'date' =>'05/09/18','following'=> 'true','genero' =>'Terror'],
@@ -314,7 +321,9 @@ class DBcontroller extends Controller
             return view('Inicio', ['NewReviews' => $NewReviews]) ->render();
         }
         $generos = CCgenre::all();
-        return view('Inicio', compact('NewReviews', 'reviews','TopReviews', 'generos'));
+        
+        $follows = CCfollowing::byUser($_SESSION['userID']);
+        return view('Inicio', compact('NewReviews', 'reviews','TopReviews', 'generos', 'follows'));
     }
     public function SearchCat($categoria){
         $reviews = CCpost::Categoria($categoria)->get(); 

@@ -1,8 +1,7 @@
 <?php 
 	if(isset($_SESSION)){
 	 	echo "<div style= 'color:green'>";
-        echo session_id();
-        echo $_SESSION['user'];
+        echo session_id();        
         echo "</div>";
 	}else{
 		session_start();
@@ -11,7 +10,7 @@
 	if(isset($_SESSION['userID'])){
         //echo "<div style= 'color:red'> Hay session </div>";
         header("location: /Inicio");
-        exit();
+      	exit();
     }else{
         echo "<div style= 'color:red'> NO Hay session ";
         echo session_id();
