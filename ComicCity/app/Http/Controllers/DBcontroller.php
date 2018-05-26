@@ -36,23 +36,34 @@ class DBcontroller extends Controller
 
  		$UsersExist = CCuser::all();
  		$LOGG = false;
- 		foreach ($UsersExist as $UE) {
- 			if($UE['email']==$_POST['email'] && $UE['password']==$_POST['pass']){
-				$LOGG = true;
-				$AUser = $UE;
- 			}
- 		}
+        $name = false;
+        $password = false;
+
+        foreach ($UsersExist as $UE) {
+            if($UE['email']==$_POST['email'] ){
+                $name = true;
+                $AUser = $UE;                
+                break;
+            }
+        }
+        if(isset($AUser)){
+            if($AUser['password']==$_POST['pass'] ){
+                $password = true; 
+                $LOGG = true;
+            }
+        }else{$password = true;}
+        
  		if($LOGG){
 	    	session_start();
     	    $_SESSION['userID']=$AUser['id'];
     	    $_SESSION['user']=$AUser['name'];
             $_SESSION['ProfileImage']=$AUser['ProfileImage'];
+
     	    $_SESSION['isAdmin']=0;
 
             return redirect('Inicio');
-
 	    }else{	    	
-    		return view('Login');
+    		return view('Login', compact('name', 'password'));
 	    }	
     }
     public function LoggingOut(){

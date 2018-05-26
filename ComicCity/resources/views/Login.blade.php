@@ -24,9 +24,10 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-   
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1">   	
+    <link href="/bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
     <title>Comic City</title>
     <link href="{!! asset('css/Style.css')!!}" rel="stylesheet" type="text/css">
   </head>
@@ -50,25 +51,23 @@
 					    </div>
 					   
 				    	<button type="submit" class="btn btn-default a">Go!</button>
-				    	<!--
-				    	@foreach($userinfo as $user)
-					    	@if($user['pass']!='1234')
-						    	<div class="alert alert-danger alert-dismissible">
-		    					<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-		    					<strong>Error!</strong>Wrong password
-		  						</div>
-					    	@endif
-				    	@endforeach
-
-				    	@foreach($userinfo as $user)
-					    	@if($user['username']!='Rey')
+				    					    	
+				    	@if(isset($name))
+				    		@if(!$name)
 						    	<div class="alert alert-danger alert-dismissible">
 		    					<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
 		    					<strong>Error!</strong>Wrong username
 		  						</div>
-					    	@endif
-				    	@endforeach
-				    	-->
+							@endif
+				    	@endif
+				    	@if(isset($password))
+				    		@if(!$password)
+						    	<div class="alert alert-danger alert-dismissible">
+		    					<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+		    					<strong>Error!</strong>Wrong password
+		  						</div>
+	  						@endif
+				    	@endif
 					</form>
 			</div>
 		

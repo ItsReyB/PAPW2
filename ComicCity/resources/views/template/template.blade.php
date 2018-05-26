@@ -25,7 +25,7 @@
 
 		<link href="/bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+		<script src="/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
 		<title>@yield('title')-Comic City</title>
 		<link href="{!! asset('css/Inicio.css')!!}" rel="stylesheet" type="text/css">
 		<script src="{!! asset('js/formsandstuff.js')!!}" type="text/javascript"></script>
