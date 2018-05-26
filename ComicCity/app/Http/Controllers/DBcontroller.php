@@ -176,7 +176,7 @@ class DBcontroller extends Controller
 		$NewPost->writer = $_POST['Autor'];
     	$NewPost->artist = $_POST['Artist'];
     	$NewPost->pages = $_POST['numPages'];
-        $NewPost->Active=0;
+        $NewPost->Active=1;
 
     	$generos = CCgenre::all();
     	foreach ($generos as $gen) {
@@ -311,6 +311,10 @@ class DBcontroller extends Controller
 
         $comments = CCcomment::withName($_POST['post'])->get();
         return view('Comments', compact('comments'))->render();
+    }
+
+    public function DelReview($id){
+    
     }
 
     //end functions

@@ -6,6 +6,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class CCpost extends Model
 {
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::addGlobalScope('active', function ($query) {
+            $query->where('Active', true);
+        });
+    }
+
  	public function scopeTitle($query, $StrSrch){
 
         return $query->where('ComicTitle', 'LIKE',$StrSrch);

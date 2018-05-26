@@ -35,6 +35,7 @@ Route::get('/Profile/{id}',['uses'=>'DBcontroller@getAProfile'])->where('id', '[
 
 Route::get('/Review/{string}', ['uses'=>'DBcontroller@WriteReview'])->where('string','New');
 Route::get('/Review/{id}', ['uses'=>'DBcontroller@ReadReview'])->where('id','[0-9]+');
+Route::get('/delReview/{id}', ['uses'=>'DBcontroller@DelReview'])->where('id','[0-9]+');
 
 Route::post('/add', 'DBcontroller@Post');
 

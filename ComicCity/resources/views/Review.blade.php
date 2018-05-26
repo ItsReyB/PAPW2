@@ -121,11 +121,17 @@ Review
         <input type="text" name="user" hidden="true" value={{$_SESSION['userID']}}>
         <button type="submit" class="btn btn-default greenbutton" id="submit">Submit</button>
         @if(!$new)
-          <button class="btn btn-danger" id="delete">Delete</button>
+          <button class="btn btn-danger" id="delete" onclick="LogicDelete()">Delete</button>
         @endif
       </div>
     </div>              
   </form>
+  <script type="text/javascript">
+    function LogicDelete(){
+      header("location: /Login");
+    }
+  </script>
+
     <!--Reseña-->
     <form id="form3">
       <div class="row sidenav">
@@ -250,31 +256,31 @@ Review
                     <img <?php echo 'src="data:image/jpeg;base64,'.($_SESSION['ProfileImage']).'"'; ?> class="img-thumbnail" alt="Cinque Terre" width="50" height="50">
                   @else
                     <img src="/Imagenes/User.jpg" class="img-thumbnail" alt="Cinque Terre" width="50" height="50">
-                  @endif
-                  
+                  @endif                  
                 </div>
-                <div class="col-sm-11">
-              <form class="form-horizontal" >                
-                <input type="text" class="form-control" id="comentario" placeholder="Leave a coment" name="comentario" required="required">              
+                <div class="col-sm-11">                            
+                <input type="text" class="form-control" id="comentario" placeholder="Leave a coment" name="comentario">              
                 <br>
-                <button type="button" class="btn btn-default" onclick="comment()" >Submit</button>
-              </form>
-              <script>  
-                function comment() {            
-                  var data = "user={{$_SESSION['userID']}}&post={{$reviewinfo['id']}}&_token={{csrf_token()}}&comentario=";
-                  data = data.concat( document.getElementById('comentario').value );
-                  var xmlhttp = new XMLHttpRequest();
-                  xmlhttp.onreadystatechange = function() {
-                    if (this.readyState == 4 && this.status == 200) {
-                      document.getElementById('comentario').value="";
-                      $('.comments').html(this.responseText);
+                <button type="button" class="btn btn-default" onclick="comment()" >Submit</button>              
+                <script>  
+                  function comment() {        
+                    var textoComtr = document.getElementById('comentario').value;
+                    if(textoComtr != ""){
+                      var data = "user={{$_SESSION['userID']}}&post={{$reviewinfo['id']}}&_token={{csrf_token()}}&comentario=";
+                      data = data.concat( textoComtr );
+                      var xmlhttp = new XMLHttpRequest();
+                      xmlhttp.onreadystatechange = function() {
+                        if (this.readyState == 4 && this.status == 200) {
+                          document.getElementById('comentario').value="";
+                          $('.comments').html(this.responseText);
+                        }
+                      };
+                      xmlhttp.open("POST", "/addComment", true);
+                      xmlhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+                      xmlhttp.send(data);
                     }
-                  };
-                  xmlhttp.open("POST", "/addComment", true);
-                  xmlhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-                  xmlhttp.send(data);
-                }
-               </script>
+                  }
+                 </script>
                </div>
              </div>
             </div>
