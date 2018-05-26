@@ -70,7 +70,7 @@ Inicio
                 @endif   
               </a>
               <p>{{$topreview['ComicTitle']}} #{{$topreview['ComicNum']}}</p>
-              <a href="Profile/{{$topreview['user_id']}}">{{$topreview['userName']}}</a> <br>
+              <a href="Profile/{{$topreview['user_id']}}">{{$topreview['user_name']}}</a> <br>
               @for ($i=0; $i < $topreview['stars']; $i++)                      
                 <span class="glyphicon glyphicon-star"></span>
               @endfor
@@ -84,27 +84,31 @@ Inicio
   </div>
 </div>
 
-@if($follows->count() )
+@if($fReviews->count() >0)
   <div class="container-fluid">
     <h2>Reviews de Personas que sigues</h2>
     <div class="panel panel-default panel-transparent">   
       <div class="panel-body inicio">
       	<div class="row">          
-      			@foreach($reviews as $followreview)
-              @if($followreview['following']=='true')
-                <div class="col-sm-2 resultados">
-                  <a href=""><img src="Imagenes/Book.jpg" class="img-responsive" alt="Profile"></a>
-                  <p>{{$followreview['review']}} </p>
-                  <a href="">{{$followreview['author']}}</a> <br>
-                  @for ($i=0; $i < $followreview['stars']; $i++)                      
-                    <span class="glyphicon glyphicon-star"></span>
-                  @endfor
-                  @for ($i=0; $i <5-$followreview['stars']; $i++)                      
-                    <span class="glyphicon glyphicon-star-empty"></span>
-                  @endfor  
-                </div>
-              @endif
-            @endforeach 
+    			@foreach($fReviews as $followreview)
+            <div class="col-sm-2 resultados">   
+              <a href="Review/{{$topreview['id']}}" >
+                @if( isset($followreview['CoverImage']) )
+                  <img <?php echo 'src="data:image/jpeg;base64,'.($followreview['CoverImage']).'"'; ?> class="img-responsive" alt="Profile">
+                @else
+                  <img src="/Imagenes/Book.jpg" class="img-responsive" alt="Profile">
+                @endif   
+              </a>                             
+              <p>{{$followreview['ComicTitle']}} #{{$followreview['ComicNum']}}</p>
+              <a href="">{{$followreview['name']}}</a> <br>
+              @for ($i=0; $i < $followreview['stars']; $i++)                      
+                <span class="glyphicon glyphicon-star"></span>
+              @endfor
+              @for ($i=0; $i <5-$followreview['stars']; $i++)                      
+                <span class="glyphicon glyphicon-star-empty"></span>
+              @endfor  
+            </div>
+          @endforeach 
         </div>
       </div>
     </div>

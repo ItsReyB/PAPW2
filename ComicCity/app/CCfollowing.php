@@ -10,7 +10,8 @@ class CCfollowing extends Model
     	return $query->where([	['follower_id',$er]	, ['followed_id', $ed]	]);
     }
     public function scopebyUser($query, $er){
-    	return $query->join('c_cposts','c_cfollowings.follower_id', 'c_cposts.user_id')
-    	->where([	['follower_id',$er]	, ['SN', true] ]);
+    	return $query	->join('c_cposts','c_cfollowings.followed_id', 'c_cposts.user_id')
+    					->join('c_cusers','c_cfollowings.followed_id', 'c_cusers.id')
+    					->where([	['follower_id',$er]	, ['SN', true] ]);
     }
 }

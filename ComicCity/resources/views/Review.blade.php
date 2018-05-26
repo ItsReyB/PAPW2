@@ -292,14 +292,12 @@ Review
           <h3>Related</h3>
           <hr>          
           @foreach($reviews as $review)
-            @if($review['genre_id'] == $reviewinfo['genero_id'] && $review['id'] != $reviewinfo['id'])
-              @if( isset($review['CoverImage']) )
-                <a href="/Review/{{$review['id']}}">
+            @if($review['genre_id'] == $reviewinfo['genero_id'] && $review['id'] != $reviewinfo['id'])              
+              <a href="/Review/{{$review['id']}}">
+                @if( isset($review['CoverImage']) )
                   <img <?php echo 'src="data:image/jpeg;base64,'.($review['CoverImage']).'"'; ?> class="img-responsive" alt="Profile">
-                </a>
-              @else
-                <a href="/Review/{{$review['id']}}"><img src="/Imagenes/Book.jpg" class="img-responsive" alt="Profile"></a>
-              @endif
+                @else<img src="/Imagenes/Book.jpg" class="img-responsive" alt="Profile">@endif
+              </a>              
               <p>{{$review['ComicTitle']}} #{{$review['ComicNum']}}</p>
               <a href="/Profile/{{$review['user_id']}}">{{$review['user_name']}}</a> <br>
               @for ($i=0; $i <$review['stars']; $i++)                      

@@ -300,7 +300,7 @@ class DBcontroller extends Controller
         session_start();
         if(!isset($_SESSION['userID']))
             return redirect('Login');
-        
+
         $NewReviews = CCpost::News()->paginate(6);
         $reviews=[
                 '0' => ['review' => 'Review one','author' => 'Rey','stars' => 0,'date' =>'05/09/18','following'=> 'true','genero' =>'Terror'],
@@ -322,8 +322,8 @@ class DBcontroller extends Controller
         }
         $generos = CCgenre::all();
         
-        $follows = CCfollowing::byUser($_SESSION['userID']);
-        return view('Inicio', compact('NewReviews', 'reviews','TopReviews', 'generos', 'follows'));
+        $fReviews = CCfollowing::byUser($_SESSION['userID'])->inRandomOrder()->take(5)->get();
+        return view('Inicio', compact('NewReviews', 'reviews','TopReviews', 'generos', 'fReviews'));
     }
     public function SearchCat($categoria){
         $reviews = CCpost::Categoria($categoria)->get(); 

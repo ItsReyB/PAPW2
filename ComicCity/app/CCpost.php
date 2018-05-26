@@ -38,8 +38,15 @@ class CCpost extends Model
         return $query->where('user_id', $id)->orderBy('created_at', 'DESC');
     }
     public function scopeTop($query){
-
-        return $query->orderBy('stars', 'DESC');
+        return $query->join('c_cusers','c_cposts.user_id', 'c_cusers.id')
+            ->select('c_cposts.id', 
+                        'ComicTitle', 
+                        'ComicNum',
+                        'c_cusers.id as user_id',
+                        'c_cusers.name as user_name',
+                        'genre_id',
+                        'CoverImage')
+            ->orderBy('stars', 'DESC');
     }
     public function scopeCategoria($query, $Categoria){
 
