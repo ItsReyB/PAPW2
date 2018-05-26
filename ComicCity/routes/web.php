@@ -28,6 +28,7 @@ Route::get('/SearchAdmin', ['uses'=>'Controller@getSearchAdmin']);
 //---------------------------------------
 Route::post('/Profile', 'DBcontroller@Signing');
 Route::post('/editMP', 'DBcontroller@editMP');
+Route::post('/delUser', 'DBcontroller@DelUser');
 Route::post('/Inicio', 'DBcontroller@Logging');
 Route::get('/LogOut', 'DBcontroller@LoggingOut');
 

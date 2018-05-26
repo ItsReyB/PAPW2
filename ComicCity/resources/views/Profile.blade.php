@@ -81,7 +81,12 @@ Profile
                 <b>Profile Picture:</b><input type="file" name="ProfilePic">
                 <br><br>
                 <button type="submit" class="btn btn-default buttonpurple" id="submit">Submit</button>
-                <br><br>
+                <br><br>    
+                <input type="hidden" name="user_id" value={{$user['id']}}>            
+              </form>
+              <form id="form11" action="/delUser" method="POST" style="display:none;">
+                {{ csrf_field() }}
+                <input type="hidden" name="user_id" value={{$user['id']}}>
                 <button class="btn btn-danger" id="deleteaccount">Eliminar cuenta</button>
               </form>
             @endif          

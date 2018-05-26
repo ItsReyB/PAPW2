@@ -234,7 +234,7 @@ class DBcontroller extends Controller
     }
     public function editMP(){ 	
     	session_start();
-    	$users = CCuser::find($_SESSION['userID']);
+    	$users = CCuser::find($_POST['user_id']);
     	$users->name = $_POST['Username'];
     	if($_FILES['ProfilePic']['tmp_name'] != '')
     		$users->ProfileImage = base64_encode(file_get_contents($_FILES['ProfilePic']['tmp_name']));
@@ -333,12 +333,28 @@ class DBcontroller extends Controller
     }
 
     public function DelReview(){
-        $deletingReview = CCpost::find($_POST['post_id']);
-        $deletingReview['Active'] = 0;
-        $deletingReview->save();
-        return redirect('Inicio');
+        if(isset($_POST)){
+            $deletingReview = CCpost::find($_POST['post_id']);
+            $deletingReview['Active'] = 0;
+            $deletingReview->save();
+            return redirect('Inicio');
+        }else{
+            return redirect('Inicio');
+        }
     }
-
+    public function DelUser(){
+        if(isset($_POST)){
+            $deletingUser = CCuser::find($_POST['user_id']);
+            $deletingUser['active'] = 0;
+            $deletingUser->save();
+            session_start();
+            session_regenerate_id();
+            session_destroy();
+            return view('Login');
+        }else{
+            return view('Login');
+        }
+    }
     //end functions
 }
 //endcontroller
