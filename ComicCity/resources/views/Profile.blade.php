@@ -24,10 +24,10 @@ Profile
         <!--en el perfil de alguien mas-->
         @if(!$actual)
           <h2>Follow</h2>              
-          <button id="btnFollow" type="button" class="btn btn-default" onclick="follow()" id='flw' content="{{ csrf_token() }}">                
+          <button id="btnFollow" type="button" class="btn btn-default" onclick="follow()" id='flw' content="{{ csrf_token() }}">
               <span class='glyphicon glyphicon-ok-sign'  ></span>                   
           </button>
-          <button id="btnUnFollow" type="button" class="btn btn-default" onclick="unfollow()" id='flw' content="{{ csrf_token() }}">                
+          <button id="btnUnFollow" type="button" class="btn btn-default" onclick="unfollow()" id='flw' content="{{ csrf_token() }}">
               <span class='glyphicon glyphicon-remove-sign'  ></span>                   
           </button>
           <input type="hidden" id="extsF" value={{$existFR}} >

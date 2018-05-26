@@ -8,6 +8,7 @@
       @endif                 
       <a href="/Profile/{{$comment['user_id']}}">{{$comment['name']}}</a>
       <p>{{$comment['text']}}</p>
+      <p style="font-size: 10px" align="right">{{$comment['created_at']}}</p>
     </div>
   </div>
 @endforeach

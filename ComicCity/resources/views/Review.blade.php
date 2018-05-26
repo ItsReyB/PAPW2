@@ -15,7 +15,7 @@ Review
     <form id="form4" style="display:none" align="right" action="/delReview" method="POST">
       {{ csrf_field() }}
       <input type="hidden" name="post_id" value={{$reviewinfo['id']}}>
-      <button type="submit" class="btn btn-danger" id="delete">Delete</button>  
+      <button type="submit" class="btn btn-danger" id="delete">Delete</button> 
     </form>    
   @endif  
   <!--Editar/Hacer nueva reseña-->
@@ -228,10 +228,16 @@ Review
           <a href="/Profile/{{$user['id']}}">{{$user['name']}}</a>
         <br>
         <p>{{$reviewinfo['text']}}</p>
-        <button type="button" class="btn btn-default greenbutton">Like This!</button>
+        
         </div>
       </div>
     </form>
+    <form id="form5" style="display:visible" align="center" action="/" method="POST">
+      {{ csrf_field() }}
+      <input type="hidden" name="post_id" value={{$reviewinfo['id']}}>
+      <input type="hidden" name="user_id" value={{$_SESSION['userID']}}>
+      <button type="submit" class="btn btn-default greenbutton">Like This!</button>
+    </form>    
 
   @if($new)
     <script>
