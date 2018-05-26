@@ -6,6 +6,9 @@ $(document).ready(function(){
         $("#form2").toggle();
     });
      $("#editarReseña").click(function(){
-        $("#form3").toggle();
+        $("#form3").toggle()
+    });
+     $("#editarReseña").click(function(){
+        $("#form4").toggle();        
     });
 });

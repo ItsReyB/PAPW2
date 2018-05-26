@@ -313,8 +313,11 @@ class DBcontroller extends Controller
         return view('Comments', compact('comments'))->render();
     }
 
-    public function DelReview($id){
-    
+    public function DelReview(){
+        $deletingReview = CCpost::find($_POST['post_id']);
+        $deletingReview['Active'] = 0;
+        $deletingReview->save();
+        return redirect('Inicio');
     }
 
     //end functions

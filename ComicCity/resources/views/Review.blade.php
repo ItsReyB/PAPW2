@@ -10,6 +10,14 @@ Review
 @endsection
 @section('content')
   <div class="container-fluid">
+  <!--Delete Review-->
+  @if(!$new)
+    <form id="form4" style="display:none" align="right" action="/delReview" method="POST">
+      {{ csrf_field() }}
+      <input type="hidden" name="post_id" value={{$reviewinfo['id']}}>
+      <button type="submit" class="btn btn-danger" id="delete">Delete</button>  
+    </form>    
+  @endif  
   <!--Editar/Hacer nueva reseña-->
   <form id="form2" action="/add" method="POST" enctype="multipart/form-data">     
     {{ csrf_field() }}        
@@ -120,18 +128,10 @@ Review
         @endif
         <input type="text" name="user" hidden="true" value={{$_SESSION['userID']}}>
         <button type="submit" class="btn btn-default greenbutton" id="submit">Submit</button>
-        @if(!$new)
-          <button class="btn btn-danger" id="delete" onclick="LogicDelete()">Delete</button>
-        @endif
+        
       </div>
     </div>              
   </form>
-  <script type="text/javascript">
-    function LogicDelete(){
-      header("location: /Login");
-    }
-  </script>
-
     <!--Reseña-->
     <form id="form3">
       <div class="row sidenav">
