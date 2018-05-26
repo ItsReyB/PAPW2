@@ -36,8 +36,8 @@ class DBcontroller extends Controller
         session_start();
         $_SESSION['userID']=$NewUser['id'];
         $_SESSION['user']=$NewUser['name'];
-        $_SESSION['ProfileImage']=$AUser['ProfileImage'];
-        $_SESSION['isAdmin']=0;
+        $_SESSION['ProfileImage']=$NewUser['ProfileImage'];
+        $_SESSION['isAdmin'] = false;
 
 		return redirect('Profile/'.$NewUser->id);	
     }
@@ -325,7 +325,8 @@ class DBcontroller extends Controller
             $user = CCuser::find($r['user_id']);
             $r['userName'] = $user['name'];
         }
-        return view('Search', compact('reviews'));
+        $generos = CCgenre::all();
+        return view('Search', compact('reviews', 'generos'));
     }
     public function Comment(Request $request){
         $NewComment = new CCcomment;

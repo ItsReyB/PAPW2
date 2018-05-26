@@ -49,11 +49,11 @@
 							<span class="caret"></span></a>
 							<ul class="dropdown-menu">												
 								@foreach ($generos as $gen)					
-									<li><a href="/Search/"{{$gen['genre']}} content="{{ csrf_token() }}">{{$gen['genre']}}</a></li>
+									<li><a href="/Search/{{$gen['genre']}}" content="{{ csrf_token() }}">{{$gen['genre']}}</a></li>
 								@endforeach
 							</ul>
 						</li>
-						@if($_SESSION['isAdmin']=='false')
+						@if(!$_SESSION['isAdmin'])
 							@if(isset($new))
 								@if(!$new)
 									<li><a href="/Review/New">New</a></li>
