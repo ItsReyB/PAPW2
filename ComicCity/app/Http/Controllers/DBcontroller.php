@@ -221,6 +221,10 @@ class DBcontroller extends Controller
     		$users->ProfileImage = base64_encode(file_get_contents($_FILES['ProfilePic']['tmp_name']));
 
     	$users->save();
+        $_SESSION['userID']=$users['id'];
+        $_SESSION['user']=$users['name'];
+        $_SESSION['ProfileImage']=$users['ProfileImage'];
+
     	return redirect('Profile/'.$_SESSION['userID']);
     }
 
@@ -299,12 +303,14 @@ class DBcontroller extends Controller
         return view('Search', compact('reviews'));
     }
     public function Comment(Request $request){
-
         $NewComment = new CCcomment;
         $NewComment->text = $_POST['comentario'];
         $NewComment->user_id = $_POST['user'];
         $NewComment->post_id = $_POST['post'];
-        $NewComment->save();
+        $NewComment->save();  
+
+        $comments = CCcomment::withName($_POST['post'])->get();
+        return view('Comments', compact('comments'))->render();
     }
 
     //end functions

@@ -239,19 +239,9 @@ Review
     <div class="row otro">
       @if(!$new)
         <div class="col-sm-10 ">        
-          @foreach($comments as $comment)
-            <div class="row comentario">
-              <div class="col-sm-12">
-                @if( isset($comment['ProfileImage']) )
-                  <img <?php echo 'src="data:image/jpeg;base64,'.($comment['ProfileImage']).'"'; ?> class="img-thumbnail" alt="Cinque Terre" width="50" height="50">
-                @else
-                  <img src="/Imagenes/User.jpg" class="img-thumbnail" alt="Cinque Terre" width="50" height="50">
-                @endif                 
-                <a href="/Profile/{{$comment['user_id']}}">{{$comment['name']}}</a>
-                <p>{{$comment['text']}}</p>
-              </div>
-            </div>
-          @endforeach
+          <section class="comments">
+            @include('Comments')
+          </section>
           <div class="row coment">
             <div class="col-sm-12 comenta">
               <div class="row">
@@ -277,7 +267,7 @@ Review
                   xmlhttp.onreadystatechange = function() {
                     if (this.readyState == 4 && this.status == 200) {
                       document.getElementById('comentario').value="";
-                      
+                      $('.comments').html(this.responseText);
                     }
                   };
                   xmlhttp.open("POST", "/addComment", true);
