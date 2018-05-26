@@ -347,10 +347,25 @@ class DBcontroller extends Controller
             $deletingUser = CCuser::find($_POST['user_id']);
             $deletingUser['active'] = 0;
             $deletingUser->save();
+
+            $postsofuser = CCpost::all();
+            foreach ($postsofuser as $pou) {
+                if($pou['user_id']==$_POST['user_id']){
+                    $pou['Active'] = 0;
+                    $pou->save();
+                }
+            }
+
+            $cmtsofuser = CCcomment::all();
+            foreach ($cmtsofuser as $cou) {
+                if($cou['user_id']==$_POST['user_id']){                    
+                    $cou->delete();
+                }
+            }
             session_start();
             session_regenerate_id();
             session_destroy();
-            return view('Login');
+            return view('Login');                
         }else{
             return view('Login');
         }
