@@ -27,7 +27,15 @@ class CCpost extends Model
     }
  	public function scopeTitle($query, $StrSrch){
 
-        return $query->where('ComicTitle', 'LIKE',$StrSrch);
+        return $query->join('c_cusers','c_cposts.user_id', 'c_cusers.id')
+            ->select('c_cposts.id', 
+                        'ComicTitle', 
+                        'ComicNum',
+                        'c_cusers.id as user_id',
+                        'c_cusers.name as user_name',
+                        'CoverImage',
+                        'stars')
+        ->where('ComicTitle', 'LIKE',$StrSrch);
     }
     public function scopeNews($query){
 
@@ -62,5 +70,44 @@ class CCpost extends Model
                         'CoverImage',
                         'stars')
         ->where('c_cgenres.genre', $Categoria);
+    }
+
+    public function scopeFilterKey($query, $StrSrch, $from, $to){
+        return $query->join('c_cusers','c_cposts.user_id', 'c_cusers.id')
+            ->select('c_cposts.id', 
+                        'ComicTitle', 
+                        'ComicNum',
+                        'c_cusers.id as user_id',
+                        'c_cusers.name as user_name',
+                        'CoverImage',
+                        'stars')
+        ->where('ComicTitle', 'LIKE',$StrSrch)
+        ->whereBetween('c_cposts.created_at', [$from, $to]);
+    }
+    public function scopeFilterKeyA($query, $StrSrch, $from, $to){
+        return $query->join('c_cusers','c_cposts.user_id', 'c_cusers.id')
+            ->select('c_cposts.id', 
+                        'ComicTitle', 
+                        'ComicNum',
+                        'c_cusers.id as user_id',
+                        'c_cusers.name as user_name',
+                        'CoverImage',
+                        'stars')
+        ->where('writer', 'LIKE',$StrSrch)
+        ->whereBetween('c_cposts.created_at', [$from, $to]);
+    }
+
+    public function scopeFilterCat($query, $Categoria, $from, $to){
+        return $query->join('c_cgenres','c_cposts.genre_id', 'c_cgenres.id')
+                    ->join('c_cusers','c_cposts.user_id', 'c_cusers.id')
+            ->select('c_cposts.id', 
+                        'ComicTitle', 
+                        'ComicNum',
+                        'c_cusers.id as user_id',
+                        'c_cusers.name as user_name',
+                        'CoverImage',
+                        'stars')
+        ->where('c_cgenres.genre', $Categoria)
+        ->whereBetween('c_cposts.created_at', [$from, $to]);
     }
 }

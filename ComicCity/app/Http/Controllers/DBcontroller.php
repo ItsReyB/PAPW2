@@ -69,7 +69,7 @@ class DBcontroller extends Controller
     	    $_SESSION['user']=$AUser['name'];
             $_SESSION['ProfileImage']=$AUser['ProfileImage'];
 
-    	    $_SESSION['isAdmin']=0;
+    	    $_SESSION['isAdmin']=1;
 
             return redirect('Inicio');
 	    }else{	    	
@@ -262,13 +262,11 @@ class DBcontroller extends Controller
     }
 
     public function Search(){
-        $reviews = CCpost::Title($_GET['search'])->get();            
-        foreach ($reviews as $r) {
-            $user = CCuser::find($r['user_id']);
-            $r['userName'] = $user['name'];
-        }
+        $reviews = CCpost::Title($_GET['search'])->get();
         $generos = CCgenre::all();
-        return view('Search', compact('reviews', 'generos'));
+        $key = $_GET['search'];
+        $cat = "";
+        return view('Search', compact('reviews', 'generos', 'key', 'cat'));
     }
     public function Main(){
         $NewReviews = CCpost::News()->get();
@@ -345,7 +343,9 @@ class DBcontroller extends Controller
     public function SearchCat($categoria){
         $reviews = CCpost::Categoria($categoria)->get(); 
         $generos = CCgenre::all();
-        return view('Search', compact('reviews', 'generos'));
+        $cat = $categoria;
+        $key = "";
+        return view('Search', compact('reviews', 'generos', 'cat', 'key'));
     }
     public function Comment(Request $request){
         $NewComment = new CCcomment;
@@ -416,6 +416,19 @@ class DBcontroller extends Controller
         }
         $nuL = CCpost::find($Like['post_id']);
         return $nuL['Likes'];
+    }
+
+    public function AdSearch(){
+        if(isset($_POST['key'])){
+            if($_POST['by'] == "titulo")
+                $reviews = CCpost::FilterKey($_POST['key'], $_POST['from'], $_POST['to'] )->get();
+            elseif($_POST['by'] == "autor")
+                $reviews = CCpost::FilterKeyA($_POST['key'], $_POST['from'], $_POST['to'] )->get();
+            return view('SReviewPages', compact('reviews'))->render();
+        }else{
+            $reviews = CCpost::FilterCat($_POST['cat'], $_POST['from'], $_POST['to'] )->get();
+            return view('SReviewPages', compact('reviews'))->render();
+        }
     }
     //end functions
 }

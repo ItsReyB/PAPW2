@@ -85,7 +85,8 @@ Profile
               xmlhttp.send(data);
             }
           </script>              
-        @else
+        @endif
+        @if($actual || $_SESSION['isAdmin'])
           <!--en su perfil-->            
           <button type="button" class="btn btn-default buttonpurple" id="showForm">Edit</button><br>
           <form id="form1" action="/editMP" method="POST" enctype="multipart/form-data">

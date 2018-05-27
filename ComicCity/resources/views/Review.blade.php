@@ -156,7 +156,7 @@ Review
             </div>
             <!--Boton para ver/ocultar seccion de nuevo/edicion-->
             <div class="col-sm-4">
-              @if($reviewinfo['user_id'] == $_SESSION['userID'] || $new)
+              @if($reviewinfo['user_id'] == $_SESSION['userID'] || $new || $_SESSION['isAdmin'])
                 <button type="button" class="btn btn-default buttoncol" id="editarReseña">Editar</button>
               @endif
             </div>

@@ -42,6 +42,7 @@ Route::post('/add', 'DBcontroller@Post');
 
 Route::get('/Search', 'DBcontroller@Search');
 Route::get('/Search/{Categoria}', ['uses'=>'DBcontroller@SearchCat'])->where('Categoria','[a-zA-Z]+');
+Route::post('/Search', 'DBcontroller@AdSearch');
 
 Route::get('/Inicio', 'DBcontroller@index');
 Route::post('/Follow', 'DBcontroller@Followuser');
