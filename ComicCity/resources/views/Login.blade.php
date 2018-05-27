@@ -1,8 +1,8 @@
 <?php 
 	if(isset($_SESSION)){
-	 	echo "<div style= 'color:green'>";
+	 	/*echo "<div style= 'color:green'>";
         echo session_id();        
-        echo "</div>";
+        echo "</div>";*/
 	}else{
 		session_start();
 	} 	
@@ -12,9 +12,9 @@
         header("location: /Inicio");
       	exit();
     }else{
-        echo "<div style= 'color:red'> NO Hay session ";
+        /*echo "<div style= 'color:red'> NO Hay session ";
         echo session_id();
-        echo "</div>";
+        echo "</div>";*/
     }
 ?>
 
