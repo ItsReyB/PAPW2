@@ -70,7 +70,7 @@ class DBcontroller extends Controller
     	    $_SESSION['user']=$AUser['name'];
             $_SESSION['ProfileImage']=$AUser['ProfileImage'];
 
-    	    $_SESSION['isAdmin']=1;
+    	    $_SESSION['isAdmin']=$AUser['isAdmin'];
 
             return redirect('Inicio');
 	    }else{	    	
