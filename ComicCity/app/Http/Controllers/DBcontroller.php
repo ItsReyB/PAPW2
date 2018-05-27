@@ -31,6 +31,7 @@ class DBcontroller extends Controller
     	$NewUser->password = $_POST['pass'];
     	$NewUser->NumFollow = 0;
     	$NewUser->active = true;
+        $NewUser->isAdmin = false;
     	$NewUser->ProfileImage = base64_encode(file_get_contents( public_path().'/Imagenes/User.jpg'	) );
 
     	$NewUser->save();
