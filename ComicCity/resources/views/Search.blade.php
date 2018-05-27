@@ -60,7 +60,7 @@ Search
               @endif
             </a>
                 <p>{{$review['ComicTitle']}} #{{$review['ComicNum']}}</p>
-                <a href="Profile/{{$review['user_id']}}">{{$review['userName']}}</a> <br>               
+                <a href="Profile/{{$review['user_id']}}">{{$review['user_name']}}</a> <br>               
                 @for ($i=0; $i < $review['stars']; $i++)                      
                   <span class="glyphicon glyphicon-star"></span>
                 @endfor

@@ -45,11 +45,22 @@ class CCpost extends Model
                         'c_cusers.id as user_id',
                         'c_cusers.name as user_name',
                         'genre_id',
-                        'CoverImage')
+                        'CoverImage',
+                        'stars')
             ->orderBy('stars', 'DESC');
     }
     public function scopeCategoria($query, $Categoria){
 
-        return $query->join('c_cgenres','c_cposts.genre_id', 'c_cgenres.id')->where('c_cgenres.genre', $Categoria);
+        return $query->join('c_cgenres','c_cposts.genre_id', 'c_cgenres.id')
+                    ->join('c_cusers','c_cposts.user_id', 'c_cusers.id')
+        ->select('c_cposts.id', 
+                        'ComicTitle', 
+                        'ComicNum',
+                        'c_cusers.id as user_id',
+                        'c_cusers.name as user_name',
+                        'genre_id',
+                        'CoverImage',
+                        'stars')
+        ->where('c_cgenres.genre', $Categoria);
     }
 }

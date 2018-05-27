@@ -232,12 +232,64 @@ Review
         </div>
       </div>
     </form>
-    <form id="form5" style="display:visible" align="center" action="/" method="POST">
-      {{ csrf_field() }}
-      <input type="hidden" name="post_id" value={{$reviewinfo['id']}}>
-      <input type="hidden" name="user_id" value={{$_SESSION['userID']}}>
-      <button type="submit" class="btn btn-default greenbutton">Like This!</button>
-    </form>    
+    <div class="col-sm-12" align="center">
+<button id="btnLike" type="button" class="btn btn-default greenbutton", onclick="like()"  content="{{ csrf_token() }}">Like This!</button>
+<button id="btnUnLike" type="button" class="btn btn-default greenbutton", onclick="unlike()"  content="{{ csrf_token() }}">Unlike</button>
+    <p id="lks">{{$reviewinfo['Likes']}}</p>
+    <input type="hidden" id="extsL" value={{$existL}} >
+    </div>
+    <script>                
+      $(document).ready(function() {                 
+        if({{$Isliked}}){
+          document.getElementById("btnLike").style.visibility = "hidden";
+          document.getElementById("btnUnLike").style.visibility = "visible";
+        }else{
+          document.getElementById("btnUnLike").style.visibility = "hidden";
+          document.getElementById("btnLike").style.visibility = "visible";
+        }
+
+      });   
+      function like() {   
+        var user = "user={{$_SESSION['userID']}}&"; 
+        var post = "post={{$reviewinfo['id']}}&";
+        var token = "_token={{csrf_token()}}&";
+        var existRow = "exist="+document.getElementById("extsL").value+"&";
+        var LikeSN = "SN=0";
+        var data = user+post+token+existRow+LikeSN;           
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function() {
+          if (this.readyState == 4 && this.status == 200) {
+            document.getElementById("btnLike").style.visibility = "hidden";
+            document.getElementById("btnUnLike").style.visibility = "visible";
+            document.getElementById("lks").innerHTML = this.responseText;
+            document.getElementById("extsL").value =1;
+          }
+        };
+        xmlhttp.open("POST", "/Like", true);
+        xmlhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+        xmlhttp.send(data);
+      }
+      function unlike() {                 
+        var user = "user={{$_SESSION['userID']}}&"; 
+        var post = "post={{$reviewinfo['id']}}&";
+        var token = "_token={{csrf_token()}}&";
+        var existRow = "exist="+document.getElementById("extsL").value+"&";
+        var LikeSN = "SN=1";
+        var data = user+post+token+existRow+LikeSN;                  
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function() {
+          if (this.readyState == 4 && this.status == 200) {
+            document.getElementById("btnLike").style.visibility = "visible";
+            document.getElementById("btnUnLike").style.visibility = "hidden";
+            document.getElementById("lks").innerHTML = this.responseText;
+            document.getElementById("extsL").value =1;
+          }
+        };
+        xmlhttp.open("POST", "/Like", true);
+        xmlhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+        xmlhttp.send(data);
+      }
+    </script> 
 
   @if($new)
     <script>

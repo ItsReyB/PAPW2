@@ -92,7 +92,7 @@ Inicio
       	<div class="row">          
     			@foreach($fReviews as $followreview)
             <div class="col-sm-2 resultados">   
-              <a href="Review/{{$topreview['id']}}" >
+              <a href="/Review/{{$followreview['id']}}" >
                 @if( isset($followreview['CoverImage']) )
                   <img <?php echo 'src="data:image/jpeg;base64,'.($followreview['CoverImage']).'"'; ?> class="img-responsive" alt="Profile">
                 @else
@@ -100,7 +100,7 @@ Inicio
                 @endif   
               </a>                             
               <p>{{$followreview['ComicTitle']}} #{{$followreview['ComicNum']}}</p>
-              <a href="">{{$followreview['name']}}</a> <br>
+              <a href="/Profile/{{$followreview['user_name']}}">{{$followreview['user_name']}}</a> <br>
               @for ($i=0; $i < $followreview['stars']; $i++)                      
                 <span class="glyphicon glyphicon-star"></span>
               @endfor
@@ -114,28 +114,34 @@ Inicio
     </div>
   </div>
 @endif
-<div class="container-fluid dos">
-  <h2>Reseñas de Comics Relacionados</h2>
-  <div class="panel panel-default panel-transparent">    
-    <div class="panel-body inicio2">
-    	<div class="row">
-        @foreach($reviews as $relatedreview)
-          @if($relatedreview['genero']=='Terror')
-            <div class="col-sm-2 resultados">
-              <a href=""><img src="Imagenes/Book.jpg" class="img-responsive" alt="Profile"></a>
-              <p>{{$relatedreview['review']}} </p>
-              <a href="">{{$relatedreview['author']}}</a> <br>                
+@if($rReviews->count() >0)
+  <div class="container-fluid dos">
+    <h2>Reseñas de Comics Relacionados</h2>
+    <div class="panel panel-default panel-transparent">    
+      <div class="panel-body inicio2">
+      	<div class="row">
+          @foreach($rReviews as $relatedreview)
+            <div class="col-sm-2 resultados">   
+              <a href="/Review/{{$relatedreview['id']}}" >
+                @if( isset($relatedreview['CoverImage']) )
+                  <img <?php echo 'src="data:image/jpeg;base64,'.($relatedreview['CoverImage']).'"'; ?> class="img-responsive" alt="Profile">
+                @else
+                  <img src="/Imagenes/Book.jpg" class="img-responsive" alt="Profile">
+                @endif   
+              </a>                             
+              <p>{{$relatedreview['ComicTitle']}} #{{$relatedreview['ComicNum']}}</p>
+              <a href="/Profile/{{$relatedreview['user_id']}}">{{$relatedreview['user_name']}}</a> <br>
               @for ($i=0; $i < $relatedreview['stars']; $i++)                      
                 <span class="glyphicon glyphicon-star"></span>
               @endfor
               @for ($i=0; $i <5-$relatedreview['stars']; $i++)                      
                 <span class="glyphicon glyphicon-star-empty"></span>
-              @endfor 
+              @endfor  
             </div>
-          @endif
-        @endforeach 
+          @endforeach 
+        </div>
       </div>
     </div>
   </div>
-</div>
+@endif
 @endsection

@@ -45,6 +45,7 @@ Route::get('/Search/{Categoria}', ['uses'=>'DBcontroller@SearchCat'])->where('Ca
 
 Route::get('/Inicio', 'DBcontroller@index');
 Route::post('/Follow', 'DBcontroller@Followuser');
+Route::post('/Like', 'DBcontroller@Likepost');
 
 Route::post('/addComment', 'DBcontroller@Comment');
 //---------------------------------------

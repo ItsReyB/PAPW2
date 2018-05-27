@@ -33,7 +33,7 @@ class Generoseros extends Seeder
     	$genero->save();
 
     	$genero = new CCgenre;
-    	$genero->genre ='Sci-Fi';
+    	$genero->genre ='SciFi';
     	$genero->save();
 
     	$genero = new CCgenre;

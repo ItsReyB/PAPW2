@@ -24,10 +24,10 @@ Profile
         <!--en el perfil de alguien mas-->
         @if(!$actual)
           <h2>Follow</h2>              
-          <button id="btnFollow" type="button" class="btn btn-default" onclick="follow()" id='flw' content="{{ csrf_token() }}">
+          <button id="btnFollow" type="button" class="btn btn-default" onclick="follow()" content="{{ csrf_token() }}">
               <span class='glyphicon glyphicon-ok-sign'  ></span>                   
           </button>
-          <button id="btnUnFollow" type="button" class="btn btn-default" onclick="unfollow()" id='flw' content="{{ csrf_token() }}">
+          <button id="btnUnFollow" type="button" class="btn btn-default" onclick="unfollow()" content="{{ csrf_token() }}">
               <span class='glyphicon glyphicon-remove-sign'  ></span>                   
           </button>
           <input type="hidden" id="extsF" value={{$existFR}} >
@@ -44,8 +44,13 @@ Profile
               }
 
             });   
-            function follow() {                 
-              var data = "er={{$_SESSION['userID']}}&ed={{$user['id']}}&_token={{csrf_token()}}&exist="+document.getElementById("extsF").value+"&SN=0";                  
+            function follow() {   
+              var follower = "er={{$_SESSION['userID']}}&"; 
+              var followed = "ed={{$user['id']}}&";
+              var token = "_token={{csrf_token()}}&";
+              var existRow = "exist="+document.getElementById("extsF").value+"&";
+              var FollowSN = "SN=0";
+              var data = follower+followed+token+existRow+FollowSN;                 
               var xmlhttp = new XMLHttpRequest();
               xmlhttp.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {
@@ -59,8 +64,13 @@ Profile
               xmlhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
               xmlhttp.send(data);
             }
-            function unfollow() {                 
-              var data = "er={{$_SESSION['userID']}}&ed={{$user['id']}}&_token={{csrf_token()}}&exist="+document.getElementById("extsF").value+"&SN=1";                  
+            function unfollow() {      
+              var follower = "er={{$_SESSION['userID']}}&"; 
+              var followed = "ed={{$user['id']}}&";
+              var token = "_token={{csrf_token()}}&";
+              var existRow = "exist="+document.getElementById("extsF").value+"&";
+              var FollowSN = "SN=1";
+              var data = follower+followed+token+existRow+FollowSN;
               var xmlhttp = new XMLHttpRequest();
               xmlhttp.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {

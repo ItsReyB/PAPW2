@@ -12,7 +12,4 @@ $(document).ready(function(){
     $("#editarReseña").click(function(){
         $("#form4").toggle();        
     });
-    $("#editarReseña").click(function(){
-        $("#form5").toggle();        
-    });
 });

@@ -8,6 +8,7 @@ use App\CCgenre;
 use App\CCeditorial;
 use App\CCfollowing;
 use App\CCcomment;
+use App\CClike;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -153,9 +154,23 @@ class DBcontroller extends Controller
 			$reviewinfo->ed = $e['name'] ;
 		}
         $user = CCuser::find($reviewinfo['user_id']);
-       
 
-		return view('Review', compact('reviewinfo','reviews','comments', 'new', 'generos', 'user'));
+        $Isliked = 0;
+        $existL = 0;
+        
+        $likes = CClike::all();
+        foreach ($likes as $ls) {
+            if($ls['user_id']== $_SESSION['userID']    && $ls['post_id'] == $reviewinfo['id']){                
+                $existL = 1;
+                break;
+            }
+        }
+        if($existL){
+            $ActualLike = CClike::Search($_SESSION['userID'], $reviewinfo['id'])->first();
+            $Isliked = $ActualLike['SN'];
+        }
+
+		return view('Review', compact('reviewinfo','reviews','comments', 'new', 'generos', 'user', 'Isliked', 'existL'));
     }
     public function Post(){  
        $exists = CCpost::all()->count();
@@ -323,14 +338,12 @@ class DBcontroller extends Controller
         $generos = CCgenre::all();
         
         $fReviews = CCfollowing::byUser($_SESSION['userID'])->inRandomOrder()->take(5)->get();
-        return view('Inicio', compact('NewReviews', 'reviews','TopReviews', 'generos', 'fReviews'));
+        $lReviews = CClike::byUser($_SESSION['userID'])->inRandomOrder()->first();
+        $rReviews = CCpost::Categoria($lReviews['genre'])->inRandomOrder()->take(5)->get(); 
+        return view('Inicio', compact('NewReviews', 'reviews','TopReviews', 'generos', 'fReviews', 'rReviews'));
     }
     public function SearchCat($categoria){
         $reviews = CCpost::Categoria($categoria)->get(); 
-        foreach ($reviews as $r) {
-            $user = CCuser::find($r['user_id']);
-            $r['userName'] = $user['name'];
-        }
         $generos = CCgenre::all();
         return view('Search', compact('reviews', 'generos'));
     }
@@ -382,6 +395,27 @@ class DBcontroller extends Controller
         }else{
             return view('Login');
         }
+    }
+
+    public function Likepost(){
+        if($_POST['exist']){
+            $Like = CClike::Search($_POST['user'], $_POST['post'])->first();
+            $Like['SN'] = !($Like['SN']);
+            $Like->save(); 
+            if($Like['SN'])
+                DB::table('c_cposts')->where('id', $Like['post_id'])->increment('Likes');
+            else
+                DB::table('c_cposts')->where('id', $Like['post_id'])->decrement('Likes');
+        }else{
+            $Like = new CClike;
+            $Like['SN'] = true;
+            $Like['user_id'] = $_POST['user'];
+            $Like['post_id'] = $_POST['post'];
+            $Like->save();
+            DB::table('c_cposts')->where('id', $Like['post_id'])->increment('Likes');
+        }
+        $nuL = CCpost::find($Like['post_id']);
+        return $nuL['Likes'];
     }
     //end functions
 }
