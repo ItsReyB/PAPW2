@@ -265,6 +265,7 @@ class DBcontroller extends Controller
     }
 
     public function Search(){
+        session_start();
         $reviews = CCpost::Title($_GET['search'])->get();
         $generos = CCgenre::all();
         $key = $_GET['search'];
@@ -344,6 +345,7 @@ class DBcontroller extends Controller
         return view('Inicio', compact('NewReviews', 'reviews','TopReviews', 'generos', 'fReviews', 'rReviews'));
     }
     public function SearchCat($categoria){
+        session_start();
         $reviews = CCpost::Categoria($categoria)->get(); 
         $generos = CCgenre::all();
         $cat = $categoria;
@@ -427,6 +429,9 @@ class DBcontroller extends Controller
                 $reviews = CCpost::FilterKey($_POST['key'], $_POST['from'], $_POST['to'] )->get();
             elseif($_POST['by'] == "autor")
                 $reviews = CCpost::FilterKeyA($_POST['key'], $_POST['from'], $_POST['to'] )->get();
+            elseif($_POST['by'] == "user")
+                $reviews = CCpost::FilterKeyU($_POST['key'], $_POST['from'], $_POST['to'] )->get();
+            
             return view('SReviewPages', compact('reviews'))->render();
         }else{
             $reviews = CCpost::FilterCat($_POST['cat'], $_POST['from'], $_POST['to'] )->get();

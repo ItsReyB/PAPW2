@@ -33,6 +33,10 @@ Search
             <br>
             <input type="radio" name="busquedapor" value="autor">Author
             <br>
+            @if($_SESSION['isAdmin'])
+              <input type="radio" name="busquedapor" value="user">User
+              <br>
+            @endif
             <p style="font-size: 11px">(no aplica para busqueda por categoria)</p>
         </div>
         <div class="col-sm-4">

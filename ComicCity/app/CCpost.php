@@ -96,6 +96,18 @@ class CCpost extends Model
         ->where('writer', 'LIKE',$StrSrch)
         ->whereBetween('c_cposts.created_at', [$from, $to]);
     }
+    public function scopeFilterKeyU($query, $StrSrch, $from, $to){
+        return $query->join('c_cusers','c_cposts.user_id', 'c_cusers.id')
+            ->select('c_cposts.id', 
+                        'ComicTitle', 
+                        'ComicNum',
+                        'c_cusers.id as user_id',
+                        'c_cusers.name as user_name',
+                        'CoverImage',
+                        'stars')
+        ->where('c_cusers.name', 'LIKE',$StrSrch)
+        ->whereBetween('c_cposts.created_at', [$from, $to]);
+    }
 
     public function scopeFilterCat($query, $Categoria, $from, $to){
         return $query->join('c_cgenres','c_cposts.genre_id', 'c_cgenres.id')
