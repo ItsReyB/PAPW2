@@ -36,9 +36,9 @@ Route::get('/Profile/{id}',['uses'=>'DBcontroller@getAProfile'])->where('id', '[
 
 Route::get('/Review/{string}', ['uses'=>'DBcontroller@WriteReview'])->where('string','New');
 Route::get('/Review/{id}', ['uses'=>'DBcontroller@ReadReview'])->where('id','[0-9]+');
-Route::post('/delReview', 'DBcontroller@DelReview');
+Route::delete('/delReview', 'DBcontroller@DelReview');
 
-Route::post('/add', 'DBcontroller@Post');
+Route::put('/add', 'DBcontroller@Post');
 
 Route::get('/Search', 'DBcontroller@Search');
 Route::get('/Search/{Categoria}', ['uses'=>'DBcontroller@SearchCat'])->where('Categoria','[a-zA-Z]+');

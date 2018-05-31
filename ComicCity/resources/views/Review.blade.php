@@ -14,13 +14,15 @@ Review
   @if(!$new)
     <form id="form4" style="display:none" align="right" action="/delReview" method="POST">
       {{ csrf_field() }}
+      {{ method_field('delete') }}
       <input type="hidden" name="post_id" value={{$reviewinfo['id']}}>
       <button type="submit" class="btn btn-danger" id="delete">Delete</button> 
     </form>    
   @endif  
   <!--Editar/Hacer nueva reseña-->
   <form id="form2" action="/add" method="POST" enctype="multipart/form-data">     
-    {{ csrf_field() }}        
+    {{ csrf_field() }}       
+    {{ method_field('put') }} 
     <div class="row sidenav">
       <div class="col-sm-2 resultados">
         @if( isset($reviewinfo['CoverImage']) )
@@ -127,11 +129,30 @@ Review
           <input type="text" name="pid" hidden="true" value={{$reviewinfo['id']}}>
         @endif
         <input type="text" name="user" hidden="true" value={{$_SESSION['userID']}}>
-        <button type="submit" class="btn btn-default greenbutton" id="submit">Submit</button>
+        <input type="submit" class="btn btn-default greenbutton" id="submit" value="Submit">
         
       </div>
     </div>              
   </form>
+  <script type="text/javascript">
+    $(document).ready(function(){
+      $(document.getElementById("form2")).submit(
+        function (event){
+          const reg = /[^0-9]/gm;
+          var Issue = document.getElementById("Issue").value;
+          var numPages = document.getElementById("numPages").value;
+          if(reg.exec(Issue) !== null){ 
+            alert("Verifica numero. Issue");
+            event.preventDefault();
+          }
+          if(reg.exec(numPages) !== null){ 
+            alert("Verifica numero. Pages");
+            event.preventDefault();
+          } 
+        }
+      );
+    });
+  </script>
     <!--Reseña-->
     <form id="form3">
       <div class="row sidenav">
