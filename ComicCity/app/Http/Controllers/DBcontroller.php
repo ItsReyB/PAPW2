@@ -121,13 +121,15 @@ class DBcontroller extends Controller
     	return view('Profile', compact('reviews', 'user', 'actual', 'Isfollowing', 'existFR', 'generos'));
     }
     public function WriteReview($string){
-    	$reviewinfo=['ComicTitle' =>'','publishdate' => '','ComicNum' => '','sinopsis' => '','Editorial' => '','writer' => '','artist' => '','genre' => '',    		'pages' => '','text' => '','stars' => 0, 'ed' => '', 'genero' =>'', 'user_id' => 0];	    	
+    	$reviewinfo=['ComicTitle' =>'','publishdate' => '','ComicNum' => '','sinopsis' => '','Editorial' => '','writer' => '','artist' => '','genre' => '',    		'pages' => '','text' => '','stars' => 0, 'ed' => '', 'genero' =>'', 'user_id' => 0, 'Likes' =>0];	    	
 		$new=true;
 		$generos = CCgenre::all();
+        $Isliked = false;
+        $existL = false;
 
         $user['id'] = 0;
         $user['name'] = "";
-		return view('Review', compact('reviewinfo', 'new', 'generos', 'user'));
+		return view('Review', compact('reviewinfo', 'new', 'generos', 'user', 'Isliked', 'existL'));
     }
     public function ReadReview($id, Request $request){
         session_start();

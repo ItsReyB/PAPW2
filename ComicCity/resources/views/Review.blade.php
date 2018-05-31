@@ -232,12 +232,15 @@ Review
         </div>
       </div>
     </form>
+
+    @if(!$new)
     <div class="col-sm-12" align="center">
 <button id="btnLike" type="button" class="btn btn-default greenbutton", onclick="like()"  content="{{ csrf_token() }}">Like This!</button>
 <button id="btnUnLike" type="button" class="btn btn-default greenbutton", onclick="unlike()"  content="{{ csrf_token() }}">Unlike</button>
     <p id="lks">{{$reviewinfo['Likes']}}</p>
     <input type="hidden" id="extsL" value={{$existL}} >
     </div>
+
     <script>                
       $(document).ready(function() {                 
         if({{$Isliked}}){
@@ -290,7 +293,7 @@ Review
         xmlhttp.send(data);
       }
     </script> 
-
+  @endif
   @if($new)
     <script>
       $(document).ready(function() {
